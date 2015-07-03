@@ -3,13 +3,18 @@
 
     <group>
         <item
+            android:id="@+id/menu_calendar"
+            android:icon="@drawable/ic_action_explore"
+            android:title="@string/title_calendar"
+            />
+        <item
             android:id="@+id/menu_settings"
             android:icon="@drawable/ic_action_settings"
             android:title="@string/menu_settings"
             />
         <item
             android:id="@+id/menu_logout"
-            android:icon="@android:drawable/ic_menu_compass"
+            android:icon="@drawable/ic_action_exit_to_app"
             android:title="@string/menu_logout"
             />
     </group>

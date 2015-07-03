@@ -61,6 +61,8 @@ public class DrawerFragment extends BaseToolbarFragment implements OnNavigationI
         int id = menuItem.getItemId();
 
         switch (id) {
+            case R.id.menu_calendar:
+                break;
             case R.id.menu_settings:
                 Log.d(TAG, "clickkkk setttttting");
                 break;
