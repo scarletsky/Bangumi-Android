@@ -1,5 +1,43 @@
 <resources>
 
+    <!-- card -->
+    <style name="card_base">
+        <item name="android:layout_width">@dimen/card_base_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_margin">@dimen/card_base_margin</item>
+    </style>
 
+    <style name="card_base_image">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/card_base_image_height</item>
+        <item name="android:layout_alignParentTop">true</item>
+    </style>
+
+    <style name="card_base_title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:padding">@dimen/card_base_title_padding</item>
+        <item name="android:textSize">@dimen/card_base_title_size</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!-- tabs -->
+    <style name="tabs_base" parent="Base.Widget.Design.TabLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/primary</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="tabGravity">fill</item>
+        <item name="tabMode">fixed</item>
+    </style>
+
+    <style name="tabs_scrollable" parent="tabs_base">
+        <item name="tabGravity">center</item>
+        <item name="tabMode">scrollable</item>
+    </style>
 
 </resources>
