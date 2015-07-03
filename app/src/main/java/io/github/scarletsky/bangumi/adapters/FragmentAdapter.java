@@ -5,7 +5,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.github.scarletsky.bangumi.R;
+import io.github.scarletsky.bangumi.api.models.Calendar;
 import io.github.scarletsky.bangumi.ui.fragments.RecyclerFragment;
 
 /**
@@ -28,7 +32,7 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return RecyclerFragment.newInstance();
+        return RecyclerFragment.newInstance(position);
     }
 
     @Override
@@ -56,5 +60,7 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
                 break;
         }
     }
+
+
 
 }

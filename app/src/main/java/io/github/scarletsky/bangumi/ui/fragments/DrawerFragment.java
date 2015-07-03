@@ -30,8 +30,7 @@ public class DrawerFragment extends BaseToolbarFragment implements OnNavigationI
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_drawer, container, false);
-        CalendarFragment mCalendarFragment = new CalendarFragment();
-        getFM().beginTransaction().replace(R.id.frame_base_toolbar_content, mCalendarFragment).commit();
+        getFM().beginTransaction().add(R.id.frame_base_toolbar_content, new CalendarFragment()).commit();
         return view;
     }
 
@@ -63,7 +62,7 @@ public class DrawerFragment extends BaseToolbarFragment implements OnNavigationI
 
         switch (id) {
             case R.id.menu_settings:
-                Log.d(TAG, "clickkkk settings");
+                Log.d(TAG, "clickkkk setttttting");
                 break;
             case R.id.menu_logout:
                 Log.d(TAG, "clickkkk logout");

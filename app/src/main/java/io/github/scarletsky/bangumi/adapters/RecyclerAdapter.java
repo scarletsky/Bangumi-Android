@@ -13,7 +13,10 @@ import android.widget.TextView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 import io.github.scarletsky.bangumi.R;
+import io.github.scarletsky.bangumi.api.models.Subject;
 
 /**
  * Created by scarlex on 15-7-3.
@@ -23,9 +26,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final String TAG = RecyclerAdapter.class.getSimpleName();
 
     private Context ctx;
-    private String[] data;
+    private List<Subject> data;
 
-    public RecyclerAdapter(Context ctx, String[] data) {
+    public RecyclerAdapter(Context ctx, List<Subject> data) {
         this.ctx = ctx;
         this.data = data;
     }
@@ -40,18 +43,27 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder h = (ViewHolder) holder;
 
-        h.mCardTitle.setText(data[position]);
+        Subject mSubject = data.get(position);
+
+        if (!mSubject.getNameCn().equals("")) {
+            h.mCardTitle.setText(mSubject.getNameCn());
+        } else {
+            h.mCardTitle.setText(mSubject.getName());
+        }
+
         Picasso
                 .with(ctx)
-                .load("https://www.baidu.com/img/bdlogo.png")
+                .load(mSubject.getImages().getLarge())
                 .placeholder(R.drawable.ic_action_settings)
                 .error(R.drawable.ic_action_menu)
+                .fit()
+                .centerCrop()
                 .into(h.mCardImage);
     }
 
     @Override
     public int getItemCount() {
-        return data.length;
+        return data.size();
     }
 
     private static class ViewHolder extends RecyclerView.ViewHolder {
