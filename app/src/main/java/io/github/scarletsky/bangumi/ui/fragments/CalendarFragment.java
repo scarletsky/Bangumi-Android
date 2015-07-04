@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.otto.Bus;
+import com.squareup.otto.Produce;
+
 import java.util.List;
 
 import io.github.scarletsky.bangumi.R;
@@ -15,6 +18,7 @@ import io.github.scarletsky.bangumi.adapters.FragmentAdapter;
 import io.github.scarletsky.bangumi.api.ApiManager;
 import io.github.scarletsky.bangumi.api.models.Calendar;
 import io.github.scarletsky.bangumi.events.LoadCalendarEvent;
+import io.github.scarletsky.bangumi.events.SetToolbarEvent;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -47,6 +51,8 @@ public class CalendarFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        BusProvider.getInstance().post(new SetToolbarEvent(getString(R.string.title_calendar)));
 
         FragmentAdapter pagerAdapter = new FragmentAdapter(
                 getActivity(),
@@ -83,7 +89,7 @@ public class CalendarFragment extends Fragment {
             @Override
             public void success(List<Calendar> calendars, Response response) {
                 mCalendars = calendars;
-                BusProvider.getInstance().post(new LoadCalendarEvent(calendars));
+                BusProvider.getInstance().post(new LoadCalendarEvent(mCalendars));
             }
 
             @Override
@@ -91,4 +97,9 @@ public class CalendarFragment extends Fragment {
             }
         });
     }
+
+//    @Produce
+//    public SetToolbarEvent produceSetToolbarEvent() {
+//        return new SetToolbarEvent(getString(R.string.title_calendar));
+//    }
 }
