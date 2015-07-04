@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.scarletsky.bangumi.R;
-import io.github.scarletsky.bangumi.adapters.RecyclerAdapter;
+import io.github.scarletsky.bangumi.adapters.SubjectsRecyclerAdapter;
 import io.github.scarletsky.bangumi.api.models.Calendar;
 import io.github.scarletsky.bangumi.api.models.Subject;
 import io.github.scarletsky.bangumi.events.LoadCalendarEvent;
@@ -25,22 +25,22 @@ import io.github.scarletsky.bangumi.utils.BusProvider;
 /**
  * Created by scarlex on 15-7-3.
  */
-public class RecyclerFragment extends Fragment {
+public class SubjectsRecyclerFragment extends Fragment {
 
     private Activity ctx;
     private List<Subject> data = new ArrayList<>();
     private int position;
-    private RecyclerAdapter adapter;
+    private SubjectsRecyclerAdapter adapter;
 
-    public static RecyclerFragment newInstance(int position) {
+    public static SubjectsRecyclerFragment newInstance(int position) {
 
-        RecyclerFragment mRecyclerFragment = new RecyclerFragment();
+        SubjectsRecyclerFragment mSubjectsRecyclerFragment = new SubjectsRecyclerFragment();
 
         Bundle args = new Bundle();
         args.putInt("ARG_POSITION", position);
-        mRecyclerFragment.setArguments(args);
+        mSubjectsRecyclerFragment.setArguments(args);
 
-        return mRecyclerFragment;
+        return mSubjectsRecyclerFragment;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class RecyclerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recycler, container, false);
 
-        adapter = new RecyclerAdapter(ctx, data);
+        adapter = new SubjectsRecyclerAdapter(ctx, data);
 
         RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         mRecyclerView.setLayoutManager(new GridLayoutManager(ctx, 2));

@@ -21,14 +21,14 @@ import io.github.scarletsky.bangumi.api.models.Subject;
 /**
  * Created by scarlex on 15-7-3.
  */
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SubjectsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static final String TAG = RecyclerAdapter.class.getSimpleName();
+    private static final String TAG = SubjectsRecyclerAdapter.class.getSimpleName();
 
     private Context ctx;
     private List<Subject> data;
 
-    public RecyclerAdapter(Context ctx, List<Subject> data) {
+    public SubjectsRecyclerAdapter(Context ctx, List<Subject> data) {
         this.ctx = ctx;
         this.data = data;
     }

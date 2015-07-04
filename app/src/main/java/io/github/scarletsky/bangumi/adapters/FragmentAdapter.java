@@ -10,7 +10,7 @@ import java.util.List;
 
 import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.api.models.Calendar;
-import io.github.scarletsky.bangumi.ui.fragments.RecyclerFragment;
+import io.github.scarletsky.bangumi.ui.fragments.SubjectsRecyclerFragment;
 
 /**
  * Created by scarlex on 15-7-3.
@@ -32,7 +32,7 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return RecyclerFragment.newInstance(position);
+        return SubjectsRecyclerFragment.newInstance(position);
     }
 
     @Override
