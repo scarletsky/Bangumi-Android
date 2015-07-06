@@ -3,7 +3,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="base_padding">16dp</dimen>
+    <dimen name="base_space">16dp</dimen>
+    <dimen name="base_padding">@dimen/base_space</dimen>
 
     <dimen name="drawer_header_height">200dp</dimen>
 
@@ -19,4 +20,8 @@
     <dimen name="text_body">14sp</dimen>
     <dimen name="text_caption">12sp</dimen>
     <dimen name="text_button">14sp</dimen>
+
+    <dimen name="btn_radius_base">2dp</dimen>
+    <dimen name="btn_height">36dp</dimen>
+    <dimen name="btn_min_width">88dp</dimen>
 </resources>

@@ -95,9 +95,4 @@ public class CalendarFragment extends Fragment {
             }
         });
     }
-
-//    @Produce
-//    public SetToolbarEvent produceSetToolbarEvent() {
-//        return new SetToolbarEvent(getString(R.string.title_calendar));
-//    }
 }

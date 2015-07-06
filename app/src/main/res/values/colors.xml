@@ -8,7 +8,7 @@
 
     <color name="text_primary">#212121</color>
     <color name="text_secondary">#727272</color>
-
+    <color name="text_hint_for_light">#16000000</color>
 
     <color name="background_grey">#FAFAFA</color>
 </resources>

@@ -53,4 +53,12 @@
         <item name="android:paddingBottom">@dimen/base_padding</item>
     </style>
 
+    <!-- button -->
+    <style name="button_rectangle">
+        <item name="android:minWidth">@dimen/btn_min_width</item>
+        <item name="android:height">@dimen/btn_height</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/button_rectangle</item>
+    </style>
+
 </resources>
