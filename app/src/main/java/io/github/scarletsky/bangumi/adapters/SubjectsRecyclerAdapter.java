@@ -3,20 +3,20 @@ package io.github.scarletsky.bangumi.adapters;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.api.models.Subject;
+import io.github.scarletsky.bangumi.events.GetSubjectEvent;
+import io.github.scarletsky.bangumi.utils.BusProvider;
 
 /**
  * Created by scarlex on 15-7-3.
@@ -43,7 +43,14 @@ public class SubjectsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder h = (ViewHolder) holder;
 
-        Subject mSubject = data.get(position);
+        final Subject mSubject = data.get(position);
+
+        h.mCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BusProvider.getInstance().post(new GetSubjectEvent(mSubject));
+            }
+        });
 
         if (!mSubject.getNameCn().equals("")) {
             h.mCardTitle.setText(mSubject.getNameCn());

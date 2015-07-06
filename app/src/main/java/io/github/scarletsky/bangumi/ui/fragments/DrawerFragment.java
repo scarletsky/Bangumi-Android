@@ -1,14 +1,11 @@
 package io.github.scarletsky.bangumi.ui.fragments;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,12 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.squareup.otto.Bus;
 import com.squareup.otto.Produce;
 import com.squareup.otto.Subscribe;
 
 import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.events.ClickNavigateIconEvent;
+import io.github.scarletsky.bangumi.events.GetSubjectEvent;
 import io.github.scarletsky.bangumi.events.SetToolbarEvent;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 
@@ -31,12 +28,12 @@ import io.github.scarletsky.bangumi.utils.BusProvider;
 public class DrawerFragment extends Fragment implements OnNavigationItemSelectedListener {
 
     private static final String TAG = DrawerFragment.class.getSimpleName();
-    private static final String TAG_CALENDAR = CalendarFragment.class.getCanonicalName();
+    private static final String TAG_CALENDAR = CalendarFragment.class.getSimpleName();
+    private static final String TAG_SUBJECT_DETAIL = SubjectDetailFragment.class.getSimpleName();
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
     private FragmentManager mFragmentManager;
-    private FragmentTransaction mTransaction;
 
     @Override
     public void onResume() {
@@ -62,7 +59,6 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
         super.onActivityCreated(savedInstanceState);
 
         mFragmentManager = getActivity().getSupportFragmentManager();
-        mTransaction = mFragmentManager.beginTransaction();
 
         mDrawerLayout = (DrawerLayout) getView().findViewById(R.id.drawer_wrapper);
         mNavigationView = (NavigationView) getView().findViewById(R.id.drawer_nav);
@@ -77,7 +73,8 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
             case R.id.menu_calendar:
 
                 if (mFragmentManager.findFragmentByTag(TAG_CALENDAR) == null) {
-                    mTransaction
+                    mFragmentManager
+                            .beginTransaction()
                             .add(R.id.frame_base_toolbar_content, new CalendarFragment(), TAG_CALENDAR)
                             .commit();
                     closeDrawer();
@@ -108,6 +105,18 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
             case BACK:
                 break;
         }
+    }
+
+
+    @Subscribe
+    public void onGetSubjectIdEvent(GetSubjectEvent event) {
+        Log.d(TAG, String.valueOf(event.getSubject()));
+
+        mFragmentManager
+                .beginTransaction()
+                .add(R.id.drawer_main, new ImageToolbarFragment(event.getSubject()), TAG_SUBJECT_DETAIL)
+                .addToBackStack(TAG_SUBJECT_DETAIL)
+                .commit();
     }
 
     private void openDrawer() {

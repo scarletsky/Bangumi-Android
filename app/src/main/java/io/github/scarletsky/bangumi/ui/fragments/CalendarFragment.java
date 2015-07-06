@@ -8,9 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.squareup.otto.Bus;
-import com.squareup.otto.Produce;
-
 import java.util.List;
 
 import io.github.scarletsky.bangumi.R;
@@ -29,6 +26,7 @@ import retrofit.client.Response;
  */
 public class CalendarFragment extends Fragment {
 
+    private static final String TAG = CalendarFragment.class.getSimpleName();
     private List<Calendar> mCalendars;
 
     @Override

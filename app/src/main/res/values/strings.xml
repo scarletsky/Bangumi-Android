@@ -2,6 +2,7 @@
     <string name="app_name">Bangumi</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_calendar">每日放送</string>
+    <string name="title_loading">加载中</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -16,4 +17,10 @@
     <string name="tabs_thursday">星期四</string>
     <string name="tabs_friday">星期五</string>
     <string name="tabs_saturday">星期六</string>
+
+    <string name="label_subject_summary">作品简介</string>
+    
+    <string name="label_subject_date">放送日期</string>
+    <string name="label_subject_weekday">放送星期</string>
+    <string name="label_subject_type">类型</string>
 </resources>

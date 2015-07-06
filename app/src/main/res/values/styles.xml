@@ -40,4 +40,17 @@
         <item name="tabMode">scrollable</item>
     </style>
 
+    <!-- label -->
+    <style name="label_primary">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:paddingBottom">@dimen/base_padding</item>
+    </style>
+
+    <style name="text_primary">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:paddingBottom">@dimen/base_padding</item>
+    </style>
+
 </resources>
