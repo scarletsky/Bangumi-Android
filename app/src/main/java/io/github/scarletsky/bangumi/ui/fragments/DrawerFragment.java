@@ -16,11 +16,13 @@ import android.view.ViewGroup;
 import com.squareup.otto.Produce;
 import com.squareup.otto.Subscribe;
 
+import io.github.scarletsky.bangumi.BangumiApplication;
 import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.events.ClickNavigateIconEvent;
 import io.github.scarletsky.bangumi.events.GetSubjectEvent;
 import io.github.scarletsky.bangumi.events.SetToolbarEvent;
 import io.github.scarletsky.bangumi.utils.BusProvider;
+import io.github.scarletsky.bangumi.utils.SessionManager;
 
 /**
  * Created by scarlex on 15-7-2.
@@ -34,6 +36,7 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
     private FragmentManager mFragmentManager;
+    private SessionManager mSession = BangumiApplication.getInstance().getSession();
 
     @Override
     public void onResume() {
@@ -89,7 +92,7 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
                 Log.d(TAG, "clickkkk setttttting");
                 break;
             case R.id.menu_logout:
-                Log.d(TAG, "clickkkk logout");
+                mSession.logout();
                 break;
         }
 

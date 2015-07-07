@@ -11,9 +11,12 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import io.github.scarletsky.bangumi.BangumiApplication;
 import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.api.ApiManager;
+import io.github.scarletsky.bangumi.api.BangumiApi;
 import io.github.scarletsky.bangumi.api.models.User;
+import io.github.scarletsky.bangumi.utils.SessionManager;
 import io.github.scarletsky.bangumi.utils.ToastManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -28,6 +31,7 @@ public class LoginFragment extends Fragment {
     private MaterialDialog mProgressDialog;
     private MaterialEditText mUsernameField;
     private MaterialEditText mPasswordField;
+    private SessionManager mSession = BangumiApplication.getInstance().getSession();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,7 +74,11 @@ public class LoginFragment extends Fragment {
                 if (user.getAuth() == null) {
                     ToastManager.show(getActivity(), getString(R.string.toast_username_or_password_wrong));
                 } else {
-                    ToastManager.show(getActivity(), "登录成功");
+
+                    mSession.setIsLogin(true);
+                    mSession.setAuth(user.getAuth());
+                    mSession.setAuthEncode(user.getAuthEncode());
+
                 }
 
             }
