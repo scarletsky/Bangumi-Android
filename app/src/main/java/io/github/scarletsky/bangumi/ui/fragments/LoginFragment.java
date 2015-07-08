@@ -1,8 +1,7 @@
 package io.github.scarletsky.bangumi.ui.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +10,12 @@ import android.widget.Button;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.rengwuxian.materialedittext.MaterialEditText;
-import com.squareup.otto.Produce;
 
 import io.github.scarletsky.bangumi.BangumiApplication;
 import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.api.ApiManager;
-import io.github.scarletsky.bangumi.api.BangumiApi;
 import io.github.scarletsky.bangumi.api.models.User;
-import io.github.scarletsky.bangumi.events.ClickNavigateIconEvent;
 import io.github.scarletsky.bangumi.events.SessionChangeEvent;
-import io.github.scarletsky.bangumi.events.SetToolbarEvent;
-import io.github.scarletsky.bangumi.ui.MainActivity;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 import io.github.scarletsky.bangumi.utils.SessionManager;
 import io.github.scarletsky.bangumi.utils.ToastManager;
@@ -32,7 +26,7 @@ import retrofit.client.Response;
 /**
  * Created by scarlex on 15-7-6.
  */
-public class LoginFragment extends Fragment {
+public class LoginFragment extends BaseToolbarFragment {
 
     private static final String TAG = LoginFragment.class.getSimpleName();
     private MaterialDialog mProgressDialog;
@@ -61,8 +55,6 @@ public class LoginFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        BusProvider.getInstance().post(new SetToolbarEvent(getString(R.string.title_login)));
-
         initProgressDialog();
 
         mUsernameField = (MaterialEditText) getView().findViewById(R.id.username_field);
@@ -84,9 +76,9 @@ public class LoginFragment extends Fragment {
         });
     }
 
-    @Produce
-    public SetToolbarEvent produceSetToolbarEvent() {
-        return new SetToolbarEvent(getString(R.string.title_login), ClickNavigateIconEvent.NavigateIconType.MENU);
+    @Override
+    protected void setToolbarTitle() {
+        getToolbar().setTitle(getString(R.string.title_login));
     }
 
     private void login(String username, String password) {

@@ -12,12 +12,9 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.squareup.otto.Produce;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
@@ -27,7 +24,6 @@ import io.github.scarletsky.bangumi.api.models.User;
 import io.github.scarletsky.bangumi.events.ClickNavigateIconEvent;
 import io.github.scarletsky.bangumi.events.GetSubjectEvent;
 import io.github.scarletsky.bangumi.events.SessionChangeEvent;
-import io.github.scarletsky.bangumi.events.SetToolbarEvent;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 import io.github.scarletsky.bangumi.utils.SessionManager;
 
@@ -60,13 +56,7 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_drawer, container, false);
-        getActivity()
-                .getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.drawer_main, new BaseToolbarFragment())
-                .commit();
-        return view;
+        return inflater.inflate(R.layout.fragment_drawer, container, false);
     }
 
     @Override
@@ -118,7 +108,6 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
                 break;
         }
     }
-
 
     @Subscribe
     public void onGetSubjectIdEvent(GetSubjectEvent event) {
@@ -176,7 +165,10 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
 
     private void goToDst(String tag) {
         Fragment targetFragment = mFragmentManager.findFragmentByTag(tag);
+        Log.d(TAG, tag);
         if (targetFragment == null) {
+
+            Log.d(TAG, "no fragment");
 
             if (tag.equals(TAG_LOGIN)) {
                 targetFragment = new LoginFragment();
@@ -186,11 +178,12 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
 
             mFragmentManager
                     .beginTransaction()
-                    .add(R.id.frame_base_toolbar_content, targetFragment, tag)
+                    .add(R.id.drawer_main, targetFragment, tag)
                     .addToBackStack(tag)
                     .commit();
 
         } else {
+            Log.d(TAG, "have fragment");
             mFragmentManager.popBackStack(tag, 0);
         }
     }

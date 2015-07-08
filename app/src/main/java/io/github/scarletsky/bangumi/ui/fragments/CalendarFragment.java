@@ -2,7 +2,6 @@ package io.github.scarletsky.bangumi.ui.fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import io.github.scarletsky.bangumi.adapters.FragmentAdapter;
 import io.github.scarletsky.bangumi.api.ApiManager;
 import io.github.scarletsky.bangumi.api.models.Calendar;
 import io.github.scarletsky.bangumi.events.LoadCalendarEvent;
-import io.github.scarletsky.bangumi.events.SetToolbarEvent;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -24,7 +22,7 @@ import retrofit.client.Response;
 /**
  * Created by scarlex on 15-7-2.
  */
-public class CalendarFragment extends Fragment {
+public class CalendarFragment extends BaseToolbarFragment {
 
     private static final String TAG = CalendarFragment.class.getSimpleName();
     private List<Calendar> mCalendars;
@@ -49,8 +47,6 @@ public class CalendarFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        BusProvider.getInstance().post(new SetToolbarEvent(getString(R.string.title_calendar)));
 
         FragmentAdapter pagerAdapter = new FragmentAdapter(
                 getActivity(),
@@ -94,5 +90,10 @@ public class CalendarFragment extends Fragment {
             public void failure(RetrofitError error) {
             }
         });
+    }
+
+    @Override
+    protected void setToolbarTitle() {
+        getToolbar().setTitle(getString(R.string.title_calendar));
     }
 }

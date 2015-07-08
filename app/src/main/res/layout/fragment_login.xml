@@ -1,37 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/base_padding"
     android:background="@android:color/white"
     >
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/username_field"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/field_username"
-        app:met_floatingLabel="highlight"
+    <include
+        android:id="@+id/toolbar_wrapper"
+        layout="@layout/fragment_base_toolbar"
         />
 
-    <com.rengwuxian.materialedittext.MaterialEditText
-        android:id="@+id/password_field"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:hint="@string/field_password"
-        app:met_floatingLabel="highlight"
-        />
+        android:layout_height="match_parent"
+        android:padding="@dimen/base_padding"
+        >
 
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/title_login"
-        android:layout_marginTop="@dimen/base_space"
-        style="@style/button_rectangle"
-        />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/username_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/field_username"
+            app:met_floatingLabel="highlight"
+            />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/password_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="@string/field_password"
+            app:met_floatingLabel="highlight"
+            />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_login"
+            android:layout_marginTop="@dimen/base_space"
+            style="@style/button_rectangle"
+            />
+    </LinearLayout>
 
 </LinearLayout>
