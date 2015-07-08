@@ -12,14 +12,21 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.otto.Produce;
 import com.squareup.otto.Subscribe;
+import com.squareup.picasso.Picasso;
 
 import io.github.scarletsky.bangumi.BangumiApplication;
 import io.github.scarletsky.bangumi.R;
+import io.github.scarletsky.bangumi.api.models.User;
 import io.github.scarletsky.bangumi.events.ClickNavigateIconEvent;
 import io.github.scarletsky.bangumi.events.GetSubjectEvent;
+import io.github.scarletsky.bangumi.events.SessionChangeEvent;
 import io.github.scarletsky.bangumi.events.SetToolbarEvent;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 import io.github.scarletsky.bangumi.utils.SessionManager;
@@ -32,6 +39,7 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
     private static final String TAG = DrawerFragment.class.getSimpleName();
     private static final String TAG_CALENDAR = CalendarFragment.class.getSimpleName();
     private static final String TAG_SUBJECT_DETAIL = SubjectDetailFragment.class.getSimpleName();
+    private static final String TAG_LOGIN = LoginFragment.class.getSimpleName();
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
@@ -57,7 +65,6 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
                 .getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.drawer_main, new BaseToolbarFragment())
-                .replace(R.id.frame_base_toolbar_content, new LoginFragment())
                 .commit();
         return view;
     }
@@ -71,6 +78,12 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
         mDrawerLayout = (DrawerLayout) getView().findViewById(R.id.drawer_wrapper);
         mNavigationView = (NavigationView) getView().findViewById(R.id.drawer_nav);
         mNavigationView.setNavigationItemSelectedListener(this);
+
+        if (mSession.isLogin()) {
+            onLogined();
+        } else {
+            onLogouted();
+        }
     }
 
     @Override
@@ -78,15 +91,11 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
         int id = menuItem.getItemId();
 
         switch (id) {
+            case R.id.menu_login:
+                goToDst(TAG_LOGIN);
+                break;
             case R.id.menu_calendar:
-
-                if (mFragmentManager.findFragmentByTag(TAG_CALENDAR) == null) {
-                    mFragmentManager
-                            .beginTransaction()
-                            .add(R.id.frame_base_toolbar_content, new CalendarFragment(), TAG_CALENDAR)
-                            .commit();
-                    closeDrawer();
-                }
+                goToDst(TAG_CALENDAR);
                 break;
             case R.id.menu_settings:
                 Log.d(TAG, "clickkkk setttttting");
@@ -97,11 +106,6 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
         }
 
         return false;
-    }
-
-    @Produce
-    public SetToolbarEvent produceSetToolbarEvent() {
-        return new SetToolbarEvent(getString(R.string.app_name), ClickNavigateIconEvent.NavigateIconType.MENU);
     }
 
     @Subscribe
@@ -118,13 +122,77 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
 
     @Subscribe
     public void onGetSubjectIdEvent(GetSubjectEvent event) {
-        Log.d(TAG, String.valueOf(event.getSubject()));
-
         mFragmentManager
                 .beginTransaction()
                 .add(R.id.drawer_main, new ImageToolbarFragment(event.getSubject()), TAG_SUBJECT_DETAIL)
                 .addToBackStack(TAG_SUBJECT_DETAIL)
                 .commit();
+    }
+
+    @Subscribe
+    public void onSessionChangeEvent(SessionChangeEvent event) {
+        boolean isLogin = event.isLogin();
+
+        if (isLogin) {
+            onLogined();
+        } else {
+            onLogouted();
+        }
+
+    }
+
+    private void onLogined() {
+        mNavigationView.getMenu().findItem(R.id.menu_login).setVisible(false);
+        mNavigationView.getMenu().findItem(R.id.menu_logout).setVisible(true);
+        setupUser();
+    }
+
+    private void onLogouted() {
+        mNavigationView.getMenu().findItem(R.id.menu_login).setVisible(true);
+        mNavigationView.getMenu().findItem(R.id.menu_logout).setVisible(false);
+        setupUser();
+        goToDst(TAG_LOGIN);
+    }
+
+    private void setupUser() {
+        User user = mSession.getUser();
+
+        RoundedImageView mUserAvatar = (RoundedImageView) mNavigationView.findViewById(R.id.user_avatar);
+        TextView mUserNickname = (TextView) mNavigationView.findViewById(R.id.user_nickname);
+
+        if (user == null) {
+            mUserAvatar.setImageResource(R.drawable.ic_action_menu);
+            mUserNickname.setText(getString(R.string.label_click_to_login));
+        } else {
+            mUserNickname.setText(user.getNickname());
+            Picasso
+                    .with(getActivity())
+                    .load(user.getAvatar().getLarge())
+                    .fit()
+                    .centerCrop()
+                    .into(mUserAvatar);
+        }
+    }
+
+    private void goToDst(String tag) {
+        Fragment targetFragment = mFragmentManager.findFragmentByTag(tag);
+        if (targetFragment == null) {
+
+            if (tag.equals(TAG_LOGIN)) {
+                targetFragment = new LoginFragment();
+            } else if (tag.equals(TAG_CALENDAR)) {
+                targetFragment = new CalendarFragment();
+            }
+
+            mFragmentManager
+                    .beginTransaction()
+                    .add(R.id.frame_base_toolbar_content, targetFragment, tag)
+                    .addToBackStack(tag)
+                    .commit();
+
+        } else {
+            mFragmentManager.popBackStack(tag, 0);
+        }
     }
 
     private void openDrawer() {

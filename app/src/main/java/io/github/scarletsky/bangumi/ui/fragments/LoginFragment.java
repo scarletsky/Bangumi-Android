@@ -1,5 +1,6 @@
 package io.github.scarletsky.bangumi.ui.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,12 +11,18 @@ import android.widget.Button;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.squareup.otto.Produce;
 
 import io.github.scarletsky.bangumi.BangumiApplication;
 import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.api.ApiManager;
 import io.github.scarletsky.bangumi.api.BangumiApi;
 import io.github.scarletsky.bangumi.api.models.User;
+import io.github.scarletsky.bangumi.events.ClickNavigateIconEvent;
+import io.github.scarletsky.bangumi.events.SessionChangeEvent;
+import io.github.scarletsky.bangumi.events.SetToolbarEvent;
+import io.github.scarletsky.bangumi.ui.MainActivity;
+import io.github.scarletsky.bangumi.utils.BusProvider;
 import io.github.scarletsky.bangumi.utils.SessionManager;
 import io.github.scarletsky.bangumi.utils.ToastManager;
 import retrofit.Callback;
@@ -34,6 +41,18 @@ public class LoginFragment extends Fragment {
     private SessionManager mSession = BangumiApplication.getInstance().getSession();
 
     @Override
+    public void onResume() {
+        super.onResume();
+        BusProvider.getInstance().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        BusProvider.getInstance().unregister(this);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
@@ -41,6 +60,8 @@ public class LoginFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        BusProvider.getInstance().post(new SetToolbarEvent(getString(R.string.title_login)));
 
         initProgressDialog();
 
@@ -55,14 +76,17 @@ public class LoginFragment extends Fragment {
                 String password = mPasswordField.getText().toString();
 
                 if (isInputsValid(username, password)) {
-
                     showProgressDialog();
                     login(username, password);
-
                 }
 
             }
         });
+    }
+
+    @Produce
+    public SetToolbarEvent produceSetToolbarEvent() {
+        return new SetToolbarEvent(getString(R.string.title_login), ClickNavigateIconEvent.NavigateIconType.MENU);
     }
 
     private void login(String username, String password) {
@@ -78,14 +102,22 @@ public class LoginFragment extends Fragment {
                     mSession.setIsLogin(true);
                     mSession.setAuth(user.getAuth());
                     mSession.setAuthEncode(user.getAuthEncode());
+                    mSession.setUserId(user.getId());
+                    mSession.setUserNickname(user.getNickname());
+                    mSession.setUserAvatar(user.getAvatar().getLarge());
 
+                    BusProvider.getInstance().post(new SessionChangeEvent(true));
+
+                    ToastManager.show(getActivity(), getString(R.string.toast_login_successfully));
                 }
 
             }
 
             @Override
             public void failure(RetrofitError error) {
+                hideProgressDialog();
 
+                ToastManager.show(getActivity(), getString(R.string.toast_network_error));
             }
         });
     }

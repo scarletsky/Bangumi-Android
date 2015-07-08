@@ -4,7 +4,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/base_padding">
+    android:padding="@dimen/base_padding"
+    android:background="@android:color/white"
+    >
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/username_field"

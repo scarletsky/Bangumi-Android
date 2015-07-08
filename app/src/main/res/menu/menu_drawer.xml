@@ -3,6 +3,11 @@
 
     <group>
         <item
+            android:id="@+id/menu_login"
+            android:icon="@drawable/ic_action_login"
+            android:title="@string/title_login"
+            />
+        <item
             android:id="@+id/menu_calendar"
             android:icon="@drawable/ic_action_explore"
             android:title="@string/title_calendar"
@@ -14,7 +19,7 @@
             />
         <item
             android:id="@+id/menu_logout"
-            android:icon="@drawable/ic_action_exit_to_app"
+            android:icon="@drawable/ic_action_logout"
             android:title="@string/menu_logout"
             />
     </group>

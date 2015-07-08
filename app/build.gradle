@@ -38,5 +38,6 @@ dependencies {
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     // material dialog
     compile 'com.afollestad:material-dialogs:0.7.6.0'
-
+    // round image
+    compile 'com.makeramen:roundedimageview:2.1.0'
 }

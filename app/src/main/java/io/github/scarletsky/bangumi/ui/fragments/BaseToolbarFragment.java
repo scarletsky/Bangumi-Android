@@ -55,10 +55,13 @@ public class BaseToolbarFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mToolbar = (Toolbar) getView().findViewById(R.id.toolbar);
         mActivity.setSupportActionBar(mToolbar);
+        setupForMenu();
     }
 
     @Subscribe
-    public void onSetToolbarEvent(final SetToolbarEvent event) {
+    public void onSetToolbarEvent(SetToolbarEvent event) {
+
+        System.out.println(event.getTitle());
 
         if (event.getTitle() != null) {
             mToolbar.setTitle(event.getTitle());

@@ -1,8 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/base_padding"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/drawer_header_height"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/drawer_header_min_height"
     android:background="@color/primary">
 
-</LinearLayout>
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/user_avatar"
+        android:layout_width="@dimen/image_avatar_size"
+        android:layout_height="@dimen/image_avatar_size"
+        android:src="@drawable/ic_action_arrow"
+        app:riv_corner_radius="@dimen/image_avatar_size"
+
+        />
+
+    <TextView
+        android:id="@+id/user_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/user_avatar"
+        android:layout_marginTop="@dimen/base_space"
+        android:text="@string/label_click_to_login"
+        android:textSize="@dimen/text_body"
+        android:textColor="@android:color/white"
+        />
+
+</RelativeLayout>
