@@ -120,6 +120,7 @@ public class LoginFragment extends BaseToolbarFragment {
                 .content(getString(R.string.dialog_logining))
                 .progress(true, 0)
                 .theme(Theme.LIGHT)
+                .cancelable(false)
                 .build();
     }
 
