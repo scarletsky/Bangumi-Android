@@ -28,4 +28,6 @@
     <dimen name="image_avatar_size">40dp</dimen>
 
     <dimen name="progress_height">10dp</dimen>
+
+    <dimen name="box_ep_size">40dp</dimen>
 </resources>

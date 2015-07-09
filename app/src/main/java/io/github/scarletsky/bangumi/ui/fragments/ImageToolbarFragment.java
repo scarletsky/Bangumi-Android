@@ -15,10 +15,16 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.api.ApiManager;
+import io.github.scarletsky.bangumi.api.models.Ep;
 import io.github.scarletsky.bangumi.api.models.Subject;
+import io.github.scarletsky.bangumi.api.models.SubjectEp;
 import io.github.scarletsky.bangumi.events.GetSubjectDetailEvent;
+import io.github.scarletsky.bangumi.events.GetSubjectEpsEvent;
 import io.github.scarletsky.bangumi.ui.MainActivity;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 import retrofit.Callback;
@@ -31,12 +37,12 @@ import retrofit.client.Response;
 public class ImageToolbarFragment extends Fragment {
 
     private static final String TAG = ImageToolbarFragment.class.getSimpleName();
-    private static final String ARG_SID = "ARG_SUBJECT";
     private CollapsingToolbarLayout mCollapsingToolbar;
     private Toolbar mToolbar;
     private ImageView mCollapingToolbarImage;
     private MainActivity mActivity;
     private Subject mSubject;
+    private List<Ep> mEps = new ArrayList<>();
 
     public ImageToolbarFragment(Subject subject) {
         this.mSubject = subject;
@@ -94,13 +100,16 @@ public class ImageToolbarFragment extends Fragment {
 
         setViewsForSubject();
 
-        ApiManager.getBangumiApi().getSubject(mSubject.getId(), new Callback<Subject>() {
+        ApiManager.getBangumiApi().getSubjectLarge(mSubject.getId(), new Callback<SubjectEp>() {
             @Override
-            public void success(Subject subject, Response response) {
-                mSubject.setSummary(subject.getSummary());
-                mSubject.setEps(subject.getEps());
-                mSubject.setType(subject.getType());
+            public void success(SubjectEp subjectEp, Response response) {
+
+                mSubject.setSummary(subjectEp.getSummary());
+                mSubject.setType(subjectEp.getType());
+                mEps.addAll(subjectEp.getEps());
                 BusProvider.getInstance().post(new GetSubjectDetailEvent(mSubject));
+                BusProvider.getInstance().post(new GetSubjectEpsEvent(mEps));
+
             }
 
             @Override
