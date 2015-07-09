@@ -26,10 +26,11 @@
     <dimen name="btn_min_width">88dp</dimen>
 
     <dimen name="image_avatar_size">40dp</dimen>
+    <dimen name="image_toolbar_height">300dp</dimen>
 
     <dimen name="progress_height">10dp</dimen>
 
-    <dimen name="box_ep_size">40dp</dimen>
+    <dimen name="box_ep_size">50dp</dimen>
 
-    <dimen name="grid_margin">20dp</dimen>
+    <dimen name="grid_margin">10dp</dimen>
 </resources>

@@ -20,6 +20,8 @@
     <string name="tabs_thursday">星期四</string>
     <string name="tabs_friday">星期五</string>
     <string name="tabs_saturday">星期六</string>
+    <string name="tabs_subject_info">作品信息</string>
+    <string name="tabs_subject_progress">观看进度</string>
 
     <!-- field (EditText) -->
     <string name="field_username">用户名</string>

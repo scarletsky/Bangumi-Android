@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.adapters.EpAdapter;
 import io.github.scarletsky.bangumi.api.models.Ep;
 import io.github.scarletsky.bangumi.events.GetSubjectEpsEvent;
+import io.github.scarletsky.bangumi.ui.widget.MarginDecoration;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 
 /**
@@ -29,6 +31,10 @@ public class EpsFragment extends Fragment {
     private static final String TAG = EpsFragment.class.getSimpleName();
     private List<Ep> data = new ArrayList<>();
     private EpAdapter adapter;
+
+    public static EpsFragment newInstance() {
+        return new EpsFragment();
+    }
 
     @Override
     public void onResume() {
@@ -45,7 +51,7 @@ public class EpsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_recycler, container, false);
+        return inflater.inflate(R.layout.fragment_ep, container, false);
     }
 
     @Override
@@ -54,7 +60,7 @@ public class EpsFragment extends Fragment {
 
         adapter = new EpAdapter(getActivity(), data);
         RecyclerView mRecyclerView = (RecyclerView) getView().findViewById(R.id.recycler);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 5));
+        mRecyclerView.addItemDecoration(new MarginDecoration(getActivity()));
         mRecyclerView.setAdapter(adapter);
 
     }

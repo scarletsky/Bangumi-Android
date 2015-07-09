@@ -14,7 +14,7 @@ public class ApiManager {
         if (retrofit == null) {
             retrofit = new RestAdapter.Builder()
                     .setEndpoint(BangumiApi.API_HOST)
-                    .setLogLevel(RestAdapter.LogLevel.FULL)
+//                    .setLogLevel(RestAdapter.LogLevel.FULL)
                     .build();
         }
         return retrofit;

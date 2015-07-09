@@ -3,6 +3,7 @@ package io.github.scarletsky.bangumi.ui.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +23,17 @@ import io.github.scarletsky.bangumi.utils.BusProvider;
  */
 public class SubjectDetailFragment extends Fragment {
 
+    private static final String TAG = SubjectDetailFragment.class.getSimpleName();
     private ProgressBar mProgressBar;
     private LinearLayout mSubjectDetailWrapper;
     private TextView mSubjectSummary;
     private TextView mSubjectType;
     private TextView mSubjectDate;
     private TextView mSubjectWeekday;
+
+    public static SubjectDetailFragment newInsatnce() {
+        return new SubjectDetailFragment();
+    }
 
     @Override
     public void onResume() {
@@ -58,6 +64,7 @@ public class SubjectDetailFragment extends Fragment {
         mSubjectType = (TextView) getView().findViewById(R.id.subject_type);
         mSubjectDate = (TextView) getView().findViewById(R.id.subject_date);
         mSubjectWeekday = (TextView) getView().findViewById(R.id.subject_weekday);
+
     }
 
     @Subscribe
