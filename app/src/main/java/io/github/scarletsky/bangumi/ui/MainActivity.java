@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
         DrawerFragment mDrawerFragment = new DrawerFragment();
         mFragmentManager = getSupportFragmentManager();
-        mFragmentManager.beginTransaction().replace(R.id.frame_main, mDrawerFragment).commit();
+        mFragmentManager.beginTransaction().add(R.id.frame_main, mDrawerFragment).commit();
     }
 
     public FragmentManager getFM() {

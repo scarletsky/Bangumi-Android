@@ -1,22 +1,15 @@
-package io.github.scarletsky.bangumi.ui.fragments;
+package io.github.scarletsky.bangumi.ui.activities;
 
-import android.app.Activity;
-import android.graphics.pdf.PdfRenderer;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
-
 import com.astuetz.PagerSlidingTabStrip;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -30,28 +23,21 @@ import io.github.scarletsky.bangumi.api.models.Subject;
 import io.github.scarletsky.bangumi.api.models.SubjectEp;
 import io.github.scarletsky.bangumi.events.GetSubjectDetailEvent;
 import io.github.scarletsky.bangumi.events.GetSubjectEpsEvent;
-import io.github.scarletsky.bangumi.ui.MainActivity;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**
- * Created by scarlex on 15-7-4.
+ * Created by scarlex on 15-7-9.
  */
-public class ImageToolbarFragment extends Fragment {
+public class ImageToolbarActivity extends AppCompatActivity {
 
-    private static final String TAG = ImageToolbarFragment.class.getSimpleName();
     private CollapsingToolbarLayout mCollapsingToolbar;
     private Toolbar mToolbar;
     private ImageView mCollapingToolbarImage;
-    private MainActivity mActivity;
     private Subject mSubject;
     private List<Ep> mEps = new ArrayList<>();
-
-    public ImageToolbarFragment(Subject subject) {
-        this.mSubject = subject;
-    }
 
     @Override
     public void onResume() {
@@ -66,40 +52,32 @@ public class ImageToolbarFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.mActivity = (MainActivity) activity;
-    }
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_image_toolbar);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_image_toolbar, container, false);
-    }
+        String subjectStr = getIntent().getStringExtra("subject");
+        mSubject = new Gson().fromJson(subjectStr, Subject.class);
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+        mToolbar = (Toolbar) findViewById(R.id.collapsing_toolbar);
+        mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_wrapper);
+        mCollapingToolbarImage = (ImageView) findViewById(R.id.collapsing_toolbar_image);
 
-        mToolbar = (Toolbar) getView().findViewById(R.id.collapsing_toolbar);
-        mCollapsingToolbar = (CollapsingToolbarLayout) getView().findViewById(R.id.collapsing_toolbar_wrapper);
-        mCollapingToolbarImage = (ImageView) getView().findViewById(R.id.collapsing_toolbar_image);
-
-        mActivity.setSupportActionBar(mToolbar);
+        setSupportActionBar(mToolbar);
         mToolbar.setNavigationIcon(R.drawable.ic_action_arrow);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getActivity().getSupportFragmentManager().beginTransaction().remove(ImageToolbarFragment.this).commit();
-                getActivity().getSupportFragmentManager().popBackStack();
+                finish();
             }
         });
 
         FragmentAdapter pagerAdapter = new FragmentAdapter(
-                getActivity(),
-                getActivity().getSupportFragmentManager(),
+                this,
+                getSupportFragmentManager(),
                 FragmentAdapter.PagerType.SUBJECT_DETAIL);
-        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) getView().findViewById(R.id.tabs);
-        ViewPager pager = (ViewPager) getView().findViewById(R.id.pager);
+        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(pagerAdapter);
         tabs.setViewPager(pager);
 
@@ -123,7 +101,7 @@ public class ImageToolbarFragment extends Fragment {
             }
         });
     }
-    
+
     private void setViewsForSubject() {
 
         if (!mSubject.getNameCn().equals("")) {
@@ -133,7 +111,7 @@ public class ImageToolbarFragment extends Fragment {
         }
 
         Picasso
-                .with(getActivity())
+                .with(this)
                 .load(mSubject.getImages().getLarge())
                 .fit()
                 .centerCrop()
@@ -141,5 +119,4 @@ public class ImageToolbarFragment extends Fragment {
 
 
     }
-
 }

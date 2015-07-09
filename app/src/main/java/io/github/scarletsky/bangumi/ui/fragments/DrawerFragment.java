@@ -1,5 +1,6 @@
 package io.github.scarletsky.bangumi.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
@@ -24,6 +26,7 @@ import io.github.scarletsky.bangumi.api.models.User;
 import io.github.scarletsky.bangumi.events.ClickNavigateIconEvent;
 import io.github.scarletsky.bangumi.events.GetSubjectEvent;
 import io.github.scarletsky.bangumi.events.SessionChangeEvent;
+import io.github.scarletsky.bangumi.ui.activities.ImageToolbarActivity;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 import io.github.scarletsky.bangumi.utils.SessionManager;
 
@@ -115,11 +118,10 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
 
     @Subscribe
     public void onGetSubjectIdEvent(GetSubjectEvent event) {
-        mFragmentManager
-                .beginTransaction()
-                .add(R.id.drawer_main, new ImageToolbarFragment(event.getSubject()), TAG_SUBJECT_DETAIL)
-                .addToBackStack(TAG_SUBJECT_DETAIL)
-                .commit();
+        String subjectStr = new Gson().toJson(event.getSubject());
+        Intent intent = new Intent(getActivity(), ImageToolbarActivity.class);
+        intent.putExtra("subject", subjectStr);
+        startActivity(intent);
     }
 
     @Subscribe
