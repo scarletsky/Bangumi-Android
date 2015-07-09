@@ -19,6 +19,7 @@ import io.github.scarletsky.bangumi.adapters.CardRecyclerAdapter;
 import io.github.scarletsky.bangumi.api.models.Calendar;
 import io.github.scarletsky.bangumi.api.models.Subject;
 import io.github.scarletsky.bangumi.events.LoadCalendarEvent;
+import io.github.scarletsky.bangumi.ui.widget.MarginDecoration;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 
 /**
@@ -56,7 +57,8 @@ public class SubjectsRecyclerFragment extends Fragment {
         adapter = new CardRecyclerAdapter(ctx, data);
 
         RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(ctx, 2));
+        mRecyclerView.addItemDecoration(new MarginDecoration(getActivity()));
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(adapter);
 
         return view;

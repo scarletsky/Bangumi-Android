@@ -15,6 +15,7 @@ import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.adapters.CardRecyclerAdapter;
 import io.github.scarletsky.bangumi.api.ApiManager;
 import io.github.scarletsky.bangumi.api.models.UserCollection;
+import io.github.scarletsky.bangumi.ui.widget.MarginDecoration;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 import io.github.scarletsky.bangumi.utils.SessionManager;
 import retrofit.Callback;
@@ -56,7 +57,8 @@ public class CollectionFragment extends BaseToolbarFragment {
         adapter = new CardRecyclerAdapter(getActivity(), data);
         adapter.setViewType(CardRecyclerAdapter.VIEW_TYPE_WITH_PROGRESS);
         RecyclerView mRecyclerView = (RecyclerView) getView().findViewById(R.id.recycler_wrapper).findViewById(R.id.recycler);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        mRecyclerView.addItemDecoration(new MarginDecoration(getActivity()));
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(adapter);
 
         ApiManager.getBangumiApi().getUserCollection(session.getUserId(), new Callback<List<UserCollection>>() {

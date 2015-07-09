@@ -8,7 +8,7 @@
 
     <dimen name="drawer_header_min_height">100dp</dimen>
 
-    <dimen name="card_base_width">200dp</dimen>
+    <dimen name="card_base_width">300dp</dimen>
     <dimen name="card_base_margin">20dp</dimen>
     <dimen name="card_base_image_height">@dimen/card_base_width</dimen>
     <dimen name="card_base_title_size">14sp</dimen>
@@ -30,4 +30,6 @@
     <dimen name="progress_height">10dp</dimen>
 
     <dimen name="box_ep_size">40dp</dimen>
+
+    <dimen name="grid_margin">20dp</dimen>
 </resources>

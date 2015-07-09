@@ -6,10 +6,11 @@
     android:layout_height="match_parent"
     >
 
-    <android.support.v7.widget.RecyclerView
+    <io.github.scarletsky.bangumi.ui.widget.AutofitRecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:columnWidth="@dimen/card_base_width"
         />
 
 </LinearLayout>
