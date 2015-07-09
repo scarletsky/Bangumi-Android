@@ -1,11 +1,9 @@
 package io.github.scarletsky.bangumi.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,19 +24,19 @@ import io.github.scarletsky.bangumi.utils.BusProvider;
 /**
  * Created by scarlex on 15-7-3.
  */
-public class SubjectsRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CardRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public static final int VIEW_TYPE_NORMAL = 1;
     public static final int VIEW_TYPE_WITH_PROGRESS = 2;
 
-    private static final String TAG = SubjectsRecyclerAdapter.class.getSimpleName();
+    private static final String TAG = CardRecyclerAdapter.class.getSimpleName();
 
     private Context ctx;
     private List<?> data;
     private int viewType = 1;
 
 
-    public SubjectsRecyclerAdapter(Context ctx, List<?> data) {
+    public CardRecyclerAdapter(Context ctx, List<?> data) {
         this.ctx = ctx;
         this.data = data;
     }

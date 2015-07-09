@@ -1,7 +1,6 @@
 package io.github.scarletsky.bangumi.ui.fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.scarletsky.bangumi.R;
-import io.github.scarletsky.bangumi.adapters.SubjectsRecyclerAdapter;
+import io.github.scarletsky.bangumi.adapters.CardRecyclerAdapter;
 import io.github.scarletsky.bangumi.api.models.Calendar;
 import io.github.scarletsky.bangumi.api.models.Subject;
 import io.github.scarletsky.bangumi.events.LoadCalendarEvent;
@@ -30,7 +29,7 @@ public class SubjectsRecyclerFragment extends Fragment {
     private Activity ctx;
     private List<Subject> data = new ArrayList<>();
     private int position;
-    private SubjectsRecyclerAdapter adapter;
+    private CardRecyclerAdapter adapter;
 
     public static SubjectsRecyclerFragment newInstance(int position) {
 
@@ -54,7 +53,7 @@ public class SubjectsRecyclerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recycler, container, false);
 
-        adapter = new SubjectsRecyclerAdapter(ctx, data);
+        adapter = new CardRecyclerAdapter(ctx, data);
 
         RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler);
         mRecyclerView.setLayoutManager(new GridLayoutManager(ctx, 2));

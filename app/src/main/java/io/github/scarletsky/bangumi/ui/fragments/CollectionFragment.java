@@ -3,7 +3,6 @@ package io.github.scarletsky.bangumi.ui.fragments;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import java.util.List;
 
 import io.github.scarletsky.bangumi.BangumiApplication;
 import io.github.scarletsky.bangumi.R;
-import io.github.scarletsky.bangumi.adapters.SubjectsRecyclerAdapter;
+import io.github.scarletsky.bangumi.adapters.CardRecyclerAdapter;
 import io.github.scarletsky.bangumi.api.ApiManager;
 import io.github.scarletsky.bangumi.api.models.UserCollection;
 import io.github.scarletsky.bangumi.utils.BusProvider;
@@ -29,7 +28,7 @@ public class CollectionFragment extends BaseToolbarFragment {
 
     private static final String TAG = CollectionFragment.class.getSimpleName();
     private SessionManager session = BangumiApplication.getInstance().getSession();
-    private SubjectsRecyclerAdapter adapter;
+    private CardRecyclerAdapter adapter;
     private List<UserCollection> data = new ArrayList<>();
 
     @Override
@@ -54,8 +53,8 @@ public class CollectionFragment extends BaseToolbarFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        adapter = new SubjectsRecyclerAdapter(getActivity(), data);
-        adapter.setViewType(SubjectsRecyclerAdapter.VIEW_TYPE_WITH_PROGRESS);
+        adapter = new CardRecyclerAdapter(getActivity(), data);
+        adapter.setViewType(CardRecyclerAdapter.VIEW_TYPE_WITH_PROGRESS);
         RecyclerView mRecyclerView = (RecyclerView) getView().findViewById(R.id.recycler_wrapper).findViewById(R.id.recycler);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mRecyclerView.setAdapter(adapter);
