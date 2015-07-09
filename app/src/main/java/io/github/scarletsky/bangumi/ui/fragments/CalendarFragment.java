@@ -1,11 +1,12 @@
 package io.github.scarletsky.bangumi.ui.fragments;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.astuetz.PagerSlidingTabStrip;
 
 import java.util.List;
 
@@ -53,13 +54,12 @@ public class CalendarFragment extends BaseToolbarFragment {
                 getActivity().getSupportFragmentManager(),
                 FragmentAdapter.PagerType.CALENDAR);
 
-        TabLayout tabs = (TabLayout) getView().findViewById(R.id.tabs);
+        PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) getView().findViewById(R.id.tabs_wrapper).findViewById(R.id.tabs);
         ViewPager pager = (ViewPager) getView().findViewById(R.id.pager);
 
         pager.setAdapter(pagerAdapter);
-        tabs.setupWithViewPager(pager);
+        tabs.setViewPager(pager);
 
-        tabs.setTabsFromPagerAdapter(pagerAdapter);
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
