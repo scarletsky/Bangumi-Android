@@ -36,6 +36,7 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
     private static final String TAG_CALENDAR = CalendarFragment.class.getSimpleName();
     private static final String TAG_SUBJECT_DETAIL = SubjectDetailFragment.class.getSimpleName();
     private static final String TAG_LOGIN = LoginFragment.class.getSimpleName();
+    private static final String TAG_COLLECTION = CollectionFragment.class.getSimpleName();
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
@@ -83,6 +84,9 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
         switch (id) {
             case R.id.menu_login:
                 goToDst(TAG_LOGIN);
+                break;
+            case R.id.menu_collection:
+                goToDst(TAG_COLLECTION);
                 break;
             case R.id.menu_calendar:
                 goToDst(TAG_CALENDAR);
@@ -133,12 +137,15 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
     private void onLogined() {
         mNavigationView.getMenu().findItem(R.id.menu_login).setVisible(false);
         mNavigationView.getMenu().findItem(R.id.menu_logout).setVisible(true);
+        mNavigationView.getMenu().findItem(R.id.menu_collection).setVisible(true);
         setupUser();
+        goToDst(TAG_COLLECTION);
     }
 
     private void onLogouted() {
         mNavigationView.getMenu().findItem(R.id.menu_login).setVisible(true);
         mNavigationView.getMenu().findItem(R.id.menu_logout).setVisible(false);
+        mNavigationView.getMenu().findItem(R.id.menu_collection).setVisible(false);
         setupUser();
         goToDst(TAG_LOGIN);
     }
@@ -165,15 +172,14 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
 
     private void goToDst(String tag) {
         Fragment targetFragment = mFragmentManager.findFragmentByTag(tag);
-        Log.d(TAG, tag);
         if (targetFragment == null) {
-
-            Log.d(TAG, "no fragment");
 
             if (tag.equals(TAG_LOGIN)) {
                 targetFragment = new LoginFragment();
             } else if (tag.equals(TAG_CALENDAR)) {
                 targetFragment = new CalendarFragment();
+            } else if (tag.equals(TAG_COLLECTION)) {
+                targetFragment = new CollectionFragment();
             }
 
             mFragmentManager
@@ -183,7 +189,6 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
                     .commit();
 
         } else {
-            Log.d(TAG, "have fragment");
             mFragmentManager.popBackStack(tag, 0);
         }
     }

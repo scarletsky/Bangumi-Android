@@ -1,28 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:wheel="http://schemas.android.com/tools"
     android:id="@+id/card"
     style="@style/card_base"
     app:cardBackgroundColor="@android:color/white">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
 
+        <ImageView
+            android:id="@+id/card_image"
+            style="@style/card_base_image"
+            />
 
-    <ImageView
-        android:id="@+id/card_image"
-        style="@style/card_base_image"
-        />
+        <TextView
+            android:id="@+id/card_title"
+            style="@style/card_base_title"
+            />
 
-    <TextView
-        android:id="@+id/card_title"
-        android:layout_below="@id/card_image"
-        style="@style/card_base_title"
-        />
+        <RelativeLayout
+            android:id="@+id/card_progress_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/base_padding"
+            android:paddingRight="@dimen/base_padding"
+            android:paddingBottom="@dimen/base_padding"
+            android:visibility="gone"
+            >
 
-    </RelativeLayout>
+            <ProgressBar
+                android:id="@+id/card_progress"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/progress_height"
+                style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+                />
+
+            <TextView
+                android:id="@+id/card_progress_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/card_progress"
+                android:textSize="@dimen/text_caption"
+                android:textColor="@color/text_secondary"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>
 

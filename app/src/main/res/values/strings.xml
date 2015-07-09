@@ -4,6 +4,7 @@
     <string name="title_calendar">每日放送</string>
     <string name="title_loading">加载中</string>
     <string name="title_login">登录</string>
+    <string name="title_collection">我的进度</string>
 
     <string name="action_settings">Settings</string>
 
