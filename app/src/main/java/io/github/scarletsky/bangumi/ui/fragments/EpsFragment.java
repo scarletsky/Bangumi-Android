@@ -20,6 +20,7 @@ import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.adapters.EpAdapter;
 import io.github.scarletsky.bangumi.api.models.Ep;
 import io.github.scarletsky.bangumi.events.GetSubjectEpsEvent;
+import io.github.scarletsky.bangumi.events.UpdatedEpEvent;
 import io.github.scarletsky.bangumi.ui.widget.MarginDecoration;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 
@@ -69,5 +70,12 @@ public class EpsFragment extends Fragment {
     public void onGetSubjectEpsEvent(GetSubjectEpsEvent event) {
         this.data.addAll(event.getEps());
         this.adapter.notifyDataSetChanged();
+    }
+
+    @Subscribe
+    public void onUpdatedEpEvent(UpdatedEpEvent event) {
+        Ep ep = this.data.get(event.getPosition());
+        ep.setWatchStatus(event.getWatchStatusId());
+        this.adapter.notifyItemChanged(event.getPosition());
     }
 }

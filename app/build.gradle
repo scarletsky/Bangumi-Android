@@ -40,6 +40,9 @@ dependencies {
     compile 'com.afollestad:material-dialogs:0.7.6.0'
     // material tabs
     compile 'com.jpardogo.materialtabstrip:library:1.1.0'
+    // material bottom sheet
+    compile 'com.cocosw:bottomsheet:1.+@aar'
+
     // round image
     compile 'com.makeramen:roundedimageview:2.1.0'
 }

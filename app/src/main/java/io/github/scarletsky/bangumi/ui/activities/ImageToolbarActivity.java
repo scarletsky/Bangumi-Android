@@ -1,5 +1,6 @@
 package io.github.scarletsky.bangumi.ui.activities;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
@@ -9,8 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.astuetz.PagerSlidingTabStrip;
 import com.google.gson.Gson;
+import com.squareup.otto.Bus;
+import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -24,10 +29,14 @@ import io.github.scarletsky.bangumi.api.models.Ep;
 import io.github.scarletsky.bangumi.api.models.Subject;
 import io.github.scarletsky.bangumi.api.models.SubjectEp;
 import io.github.scarletsky.bangumi.api.models.SubjectProgress;
+import io.github.scarletsky.bangumi.api.responses.BaseResponse;
 import io.github.scarletsky.bangumi.events.GetSubjectDetailEvent;
 import io.github.scarletsky.bangumi.events.GetSubjectEpsEvent;
+import io.github.scarletsky.bangumi.events.UpdateEpEvent;
+import io.github.scarletsky.bangumi.events.UpdatedEpEvent;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 import io.github.scarletsky.bangumi.utils.SessionManager;
+import io.github.scarletsky.bangumi.utils.ToastManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -38,6 +47,7 @@ import retrofit.client.Response;
 public class ImageToolbarActivity extends AppCompatActivity {
 
     private static final String TAG = ImageToolbarActivity.class.getSimpleName();
+    private MaterialDialog mProgressDialog;
     private CollapsingToolbarLayout mCollapsingToolbar;
     private Toolbar mToolbar;
     private ImageView mCollapingToolbarImage;
@@ -89,6 +99,7 @@ public class ImageToolbarActivity extends AppCompatActivity {
         tabs.setViewPager(pager);
 
         setViewsForSubject();
+        initProgressDialog();
 
         ApiManager.getBangumiApi().getSubjectLarge(mSubject.getId(), new Callback<SubjectEp>() {
             @Override
@@ -120,13 +131,37 @@ public class ImageToolbarActivity extends AppCompatActivity {
                     }
                 });
 
-
-
-
             }
 
             @Override
             public void failure(RetrofitError error) {
+
+            }
+        });
+    }
+
+    @Subscribe
+    public void onUpdateEpEvent(final UpdateEpEvent event) {
+        showProgressDialog();
+        ApiManager.getBangumiApi().updateEp(
+                event.getEpId(),
+                event.getStatus().getStr(),
+                session.getAuth(),
+                new Callback<BaseResponse>() {
+            @Override
+            public void success(BaseResponse baseResponse, Response response) {
+                hideProgressDialog();
+                System.out.println(baseResponse.getError());
+
+                if (baseResponse.getCode() == 200) {
+                    BusProvider.getInstance().post(new UpdatedEpEvent(event.getStatus().getWatchStatusId(), event.getPosition()));
+                    ToastManager.show(ImageToolbarActivity.this, getString(R.string.toast_ep_update_successfully));
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                hideProgressDialog();
 
             }
         });
@@ -166,5 +201,23 @@ public class ImageToolbarActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    private void initProgressDialog() {
+        mProgressDialog = new MaterialDialog
+                .Builder(this)
+                .content(getString(R.string.dialog_ep_updating))
+                .progress(true, 0)
+                .theme(Theme.LIGHT)
+                .cancelable(false)
+                .build();
+    }
+
+    private void showProgressDialog() {
+        mProgressDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        mProgressDialog.hide();
     }
 }

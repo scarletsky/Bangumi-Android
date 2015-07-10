@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/queue"
+        android:title="@string/queue"
+        />
+    <item
+        android:id="@+id/watched"
+        android:title="@string/watched"
+        />
+    <!--<item-->
+        <!--android:id="@+id/watching"-->
+        <!--android:title="@string/watching"-->
+        <!--/>-->
+    <!--<item-->
+        <!--android:id="@+id/on_hold"-->
+        <!--android:title="@string/on_hold"-->
+        <!--/>-->
+    <item
+        android:id="@+id/drop"
+        android:title="@string/drop"
+        />
+</menu>
