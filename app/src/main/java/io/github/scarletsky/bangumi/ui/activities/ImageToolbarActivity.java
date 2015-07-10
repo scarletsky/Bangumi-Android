@@ -5,6 +5,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -15,15 +16,18 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.scarletsky.bangumi.BangumiApplication;
 import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.adapters.FragmentAdapter;
 import io.github.scarletsky.bangumi.api.ApiManager;
 import io.github.scarletsky.bangumi.api.models.Ep;
 import io.github.scarletsky.bangumi.api.models.Subject;
 import io.github.scarletsky.bangumi.api.models.SubjectEp;
+import io.github.scarletsky.bangumi.api.models.SubjectProgress;
 import io.github.scarletsky.bangumi.events.GetSubjectDetailEvent;
 import io.github.scarletsky.bangumi.events.GetSubjectEpsEvent;
 import io.github.scarletsky.bangumi.utils.BusProvider;
+import io.github.scarletsky.bangumi.utils.SessionManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -33,11 +37,14 @@ import retrofit.client.Response;
  */
 public class ImageToolbarActivity extends AppCompatActivity {
 
+    private static final String TAG = ImageToolbarActivity.class.getSimpleName();
     private CollapsingToolbarLayout mCollapsingToolbar;
     private Toolbar mToolbar;
     private ImageView mCollapingToolbarImage;
     private Subject mSubject;
     private List<Ep> mEps = new ArrayList<>();
+    private List<SubjectProgress.Ep> mSubjectProgressEps = new ArrayList<>();
+    private SessionManager session = BangumiApplication.getInstance().getSession();
 
     @Override
     public void onResume() {
@@ -85,13 +92,36 @@ public class ImageToolbarActivity extends AppCompatActivity {
 
         ApiManager.getBangumiApi().getSubjectLarge(mSubject.getId(), new Callback<SubjectEp>() {
             @Override
-            public void success(SubjectEp subjectEp, Response response) {
+            public void success(final SubjectEp subjectEp, Response response) {
 
                 mSubject.setSummary(subjectEp.getSummary());
                 mSubject.setType(subjectEp.getType());
-                mEps.addAll(subjectEp.getEps());
-                BusProvider.getInstance().post(new GetSubjectDetailEvent(mSubject));
-                BusProvider.getInstance().post(new GetSubjectEpsEvent(mEps));
+
+                ApiManager.getBangumiApi().getSubjectProgress(
+                        session.getUserId(),
+                        session.getAuth(),
+                        mSubject.getId(),
+                        new Callback<SubjectProgress>() {
+                    @Override
+                    public void success(SubjectProgress subjectProgress, Response response) {
+
+                        if (subjectProgress != null) {
+                            mergeWithProgress(subjectEp.getEps(), subjectProgress.getEps());
+                        }
+
+                        mEps.addAll(subjectEp.getEps());
+                        BusProvider.getInstance().post(new GetSubjectDetailEvent(mSubject));
+                        BusProvider.getInstance().post(new GetSubjectEpsEvent(mEps));
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+
+                    }
+                });
+
+
+
 
             }
 
@@ -117,6 +147,24 @@ public class ImageToolbarActivity extends AppCompatActivity {
                 .centerCrop()
                 .into(mCollapingToolbarImage);
 
+
+    }
+
+    // set subject eps with progress
+    private void mergeWithProgress(List<Ep> eps, List<SubjectProgress.Ep> epsProgress) {
+
+        for (SubjectProgress.Ep epProgress : epsProgress) {
+
+            for (Ep ep : eps) {
+
+                if (epProgress.getEpId() == ep.getId()) {
+                    ep.setWatchStatus(epProgress.getStatus().getId());
+                    break;
+                }
+
+            }
+
+        }
 
     }
 }

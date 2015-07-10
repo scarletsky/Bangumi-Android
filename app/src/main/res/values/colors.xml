@@ -2,7 +2,7 @@
 <resources>
     <color name="primary">#F09199</color>
     <color name="primary_dark">#E7767F</color>
-    <color name="primary_light">#BBDEFB</color>
+    <color name="primary_light">#FFD8E4</color>
     <color name="accent">#FF4081</color>
     <color name="accent_fallback">#FF80AB</color>
 
@@ -11,4 +11,6 @@
     <color name="text_hint_for_light">#16000000</color>
 
     <color name="background_grey">#FAFAFA</color>
+
+    <color name="grey_300">#E0E0E0</color>
 </resources>
