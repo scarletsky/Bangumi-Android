@@ -129,7 +129,7 @@ public class LoginFragment extends BaseToolbarFragment {
     }
 
     private void hideProgressDialog() {
-        mProgressDialog.hide();
+        mProgressDialog.dismiss();
     }
 
     private boolean isInputsValid(String username, String password) {
