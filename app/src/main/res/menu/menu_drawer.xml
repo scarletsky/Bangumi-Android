@@ -18,11 +18,6 @@
             android:title="@string/title_calendar"
             />
         <item
-            android:id="@+id/menu_settings"
-            android:icon="@drawable/ic_action_settings"
-            android:title="@string/menu_settings"
-            />
-        <item
             android:id="@+id/menu_search"
             android:icon="@drawable/ic_action_search_balck"
             android:title="@string/menu_search"

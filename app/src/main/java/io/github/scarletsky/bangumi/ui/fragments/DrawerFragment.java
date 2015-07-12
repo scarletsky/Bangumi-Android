@@ -100,9 +100,6 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
             case R.id.menu_search:
                 goToDst(TAG_SEARCH);
                 break;
-            case R.id.menu_settings:
-                Log.d(TAG, "clickkkk setttttting");
-                break;
             case R.id.menu_logout:
                 mSession.logout();
                 break;
