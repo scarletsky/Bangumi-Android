@@ -15,10 +15,13 @@ import com.cocosw.bottomsheet.BottomSheet;
 
 import java.util.List;
 
+import io.github.scarletsky.bangumi.BangumiApplication;
 import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.api.models.Ep;
 import io.github.scarletsky.bangumi.events.UpdateEpEvent;
 import io.github.scarletsky.bangumi.utils.BusProvider;
+import io.github.scarletsky.bangumi.utils.SessionManager;
+import io.github.scarletsky.bangumi.utils.ToastManager;
 
 /**
  * Created by scarlex on 15-7-9.
@@ -26,6 +29,7 @@ import io.github.scarletsky.bangumi.utils.BusProvider;
 public class EpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final String TAG = EpAdapter.class.getSimpleName();
+    private SessionManager session = BangumiApplication.getInstance().getSession();
     private Context ctx;
     private List<Ep> data;
 
@@ -60,9 +64,16 @@ public class EpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     menu_bottom_sheet = R.menu.menu_bottom_sheet;
                 }
 
+
                 h.mBox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+                        if (session.getAuth().equals("")) {
+                            ToastManager.show(ctx, ctx.getString(R.string.toast_please_login_first));
+                            return;
+                        }
+
                         new BottomSheet.Builder((Activity) ctx)
                                 .title(ep.getTitle())
                                 .sheet(menu_bottom_sheet)
