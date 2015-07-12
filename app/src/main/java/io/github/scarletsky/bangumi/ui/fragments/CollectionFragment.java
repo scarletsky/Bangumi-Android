@@ -1,7 +1,7 @@
 package io.github.scarletsky.bangumi.ui.fragments;
 
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +18,7 @@ import io.github.scarletsky.bangumi.api.models.UserCollection;
 import io.github.scarletsky.bangumi.ui.widget.MarginDecoration;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 import io.github.scarletsky.bangumi.utils.SessionManager;
+import io.github.scarletsky.bangumi.utils.ToastManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -31,6 +32,7 @@ public class CollectionFragment extends BaseToolbarFragment {
     private SessionManager session = BangumiApplication.getInstance().getSession();
     private CardRecyclerAdapter adapter;
     private List<UserCollection> data = new ArrayList<>();
+    private SwipeRefreshLayout mSwipeRefresh;
 
     @Override
     public void onResume() {
@@ -61,15 +63,18 @@ public class CollectionFragment extends BaseToolbarFragment {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(adapter);
 
-        ApiManager.getBangumiApi().getUserCollection(session.getUserId(), new Callback<List<UserCollection>>() {
+        mSwipeRefresh = (SwipeRefreshLayout) getView().findViewById(R.id.recycler_wrapper);
+        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void success(List<UserCollection> userCollections, Response response) {
-                data.addAll(userCollections);
-                adapter.notifyDataSetChanged();
+            public void onRefresh() {
+                getCollections();
             }
+        });
 
+        mSwipeRefresh.post(new Runnable() {
             @Override
-            public void failure(RetrofitError error) {
+            public void run() {
+                getCollections();
             }
         });
     }
@@ -77,5 +82,26 @@ public class CollectionFragment extends BaseToolbarFragment {
     @Override
     protected void setToolbarTitle() {
         getToolbar().setTitle(getString(R.string.title_collection));
+    }
+
+    private void getCollections() {
+        mSwipeRefresh.setRefreshing(true);
+
+        ApiManager.getBangumiApi().getUserCollection(session.getUserId(), new Callback<List<UserCollection>>() {
+            @Override
+            public void success(List<UserCollection> userCollections, Response response) {
+                data.clear();
+                data.addAll(userCollections);
+                adapter.notifyDataSetChanged();
+                mSwipeRefresh.setRefreshing(false);
+                ToastManager.show(getActivity(), getString(R.string.toast_get_collections));
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                mSwipeRefresh.setRefreshing(false);
+                ToastManager.show(getActivity(), getString(R.string.toast_network_error));
+            }
+        });
     }
 }

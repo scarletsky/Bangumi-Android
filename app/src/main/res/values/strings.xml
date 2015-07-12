@@ -36,6 +36,7 @@
     <string name="toast_username_or_password_wrong">用户名或密码错误</string>
     <string name="toast_login_successfully">登录成功</string>
     <string name="toast_ep_update_successfully">进度已更新</string>
+    <string name="toast_get_collections">已经获取最新的进度</string>
 
     <!-- label (TextView) -->
     <string name="label_subject_summary">作品简介</string>
