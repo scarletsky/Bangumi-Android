@@ -152,6 +152,7 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
         mNavigationView.getMenu().findItem(R.id.menu_logout).setVisible(false);
         mNavigationView.getMenu().findItem(R.id.menu_collection).setVisible(false);
         setupUser();
+        popBackStackAll();
         goToDst(TAG_LOGIN);
     }
 
@@ -206,6 +207,13 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
 
     private void closeDrawer() {
         mDrawerLayout.closeDrawer(Gravity.LEFT);
+    }
+
+    private void popBackStackAll() {
+        int backStackCount = mFragmentManager.getBackStackEntryCount();
+        for (int i = backStackCount; i > 0; i--) {
+            mFragmentManager.popBackStack();
+        }
     }
 }
 
