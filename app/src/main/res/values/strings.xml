@@ -53,4 +53,5 @@
     <string name="watching">在看</string>
     <string name="on_hold">搁置</string>
     <string name="drop">抛弃</string>
+    <string name="undo">撤销</string>
 </resources>

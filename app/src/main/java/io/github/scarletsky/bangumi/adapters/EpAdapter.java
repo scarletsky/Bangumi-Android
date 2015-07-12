@@ -51,30 +51,25 @@ public class EpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case AIR:
                 h.mSort.setTextColor(ctx.getResources().getColor(android.R.color.white));
                 h.mBox.setBackgroundResource(R.color.primary_light);
+                final int menu_bottom_sheet;
+
+                if (ep.getWatchStatus() == Ep.WatchStatus.WATCHED) {
+                    h.mBox.setBackgroundResource(R.color.primary);
+                    menu_bottom_sheet = R.menu.menu_bottom_sheet_large;
+                } else {
+                    menu_bottom_sheet = R.menu.menu_bottom_sheet;
+                }
+
                 h.mBox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         new BottomSheet.Builder((Activity) ctx)
                                 .title(ep.getTitle())
-                                .sheet(R.menu.menu_bottom_sheet)
+                                .sheet(menu_bottom_sheet)
                                 .listener(new DialogInterface.OnClickListener() {
-
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        Ep.WatchStatus ws;
-                                        switch (which) {
-                                            case R.id.queue:
-                                                ws = Ep.WatchStatus.QUEUE;
-                                                break;
-                                            case R.id.watched:
-                                                ws = Ep.WatchStatus.WATCHED;
-                                                break;
-                                            default:
-                                                ws = Ep.WatchStatus.DROP;
-                                                break;
-                                        }
-
-                                        BusProvider.getInstance().post(new UpdateEpEvent(ep.getId(), ws, position));
+                                        onEpMenuClick(ep, position, which);
                                     }
                                 }).show();
                     }
@@ -88,9 +83,6 @@ public class EpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 break;
         }
 
-        if (ep.getWatchStatus() == Ep.WatchStatus.WATCHED) {
-            h.mBox.setBackgroundResource(R.color.primary);
-        }
 
     }
 
@@ -109,5 +101,24 @@ public class EpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mBox = (RelativeLayout) v.findViewById(R.id.box_ep);
             mSort = (TextView) v.findViewById(R.id.box_ep_sort);
         }
+    }
+
+    private void onEpMenuClick(Ep ep, int position, int which) {
+        Ep.WatchStatus ws;
+        switch (which) {
+            case R.id.menu_wish:
+                ws = Ep.WatchStatus.WISH;
+                break;
+            case R.id.menu_watched:
+                ws = Ep.WatchStatus.WATCHED;
+                break;
+            case R.id.menu_drop:
+                ws = Ep.WatchStatus.DROP;
+                break;
+            default:
+                ws = Ep.WatchStatus.UNDO;
+        }
+
+        BusProvider.getInstance().post(new UpdateEpEvent(ep.getId(), ws, position));
     }
 }
