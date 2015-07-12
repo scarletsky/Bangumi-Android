@@ -3,6 +3,7 @@ package io.github.scarletsky.bangumi.ui.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ public class SubjectsRecyclerFragment extends Fragment {
     private List<Subject> data = new ArrayList<>();
     private int position;
     private CardRecyclerAdapter adapter;
+    private SwipeRefreshLayout mSwipeRefresh;
 
     public static SubjectsRecyclerFragment newInstance(int position) {
 
@@ -52,16 +54,34 @@ public class SubjectsRecyclerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_recycler, container, false);
+        return inflater.inflate(R.layout.fragment_recycler, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         adapter = new CardRecyclerAdapter(ctx, data);
 
-        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler);
+        RecyclerView mRecyclerView = (RecyclerView) getView().findViewById(R.id.recycler);
         mRecyclerView.addItemDecoration(new MarginDecoration(getActivity()));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(adapter);
 
-        return view;
+        mSwipeRefresh = (SwipeRefreshLayout) getView().findViewById(R.id.swipe_refresh);
+        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mSwipeRefresh.setRefreshing(false);
+            }
+        });
+
+        mSwipeRefresh.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefresh.setRefreshing(true);
+            }
+        });
     }
 
     @Override
@@ -82,5 +102,6 @@ public class SubjectsRecyclerFragment extends Fragment {
         this.data.clear();
         this.data.addAll(mCalendar.getItems());
         adapter.notifyDataSetChanged();
+        mSwipeRefresh.setRefreshing(false);
     }
 }
