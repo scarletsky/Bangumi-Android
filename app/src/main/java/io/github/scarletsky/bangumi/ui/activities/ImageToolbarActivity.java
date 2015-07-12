@@ -218,6 +218,6 @@ public class ImageToolbarActivity extends AppCompatActivity {
     }
 
     private void hideProgressDialog() {
-        mProgressDialog.hide();
+        mProgressDialog.dismiss();
     }
 }
