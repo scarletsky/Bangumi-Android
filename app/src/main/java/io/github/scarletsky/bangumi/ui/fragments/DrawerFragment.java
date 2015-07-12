@@ -212,7 +212,7 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
     private void popBackStackAll() {
         int backStackCount = mFragmentManager.getBackStackEntryCount();
         for (int i = backStackCount; i > 0; i--) {
-            mFragmentManager.popBackStack();
+            mFragmentManager.popBackStackImmediate();
         }
     }
 }
