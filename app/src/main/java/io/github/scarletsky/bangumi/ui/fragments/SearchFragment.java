@@ -1,4 +1,4 @@
-package io.github.scarletsky.bangumi.ui.activities;
+package io.github.scarletsky.bangumi.ui.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
