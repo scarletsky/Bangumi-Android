@@ -141,7 +141,7 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
         mNavigationView.getMenu().findItem(R.id.menu_logout).setVisible(true);
         mNavigationView.getMenu().findItem(R.id.menu_collection).setVisible(true);
         setupUser();
-        addBasePage(TAG_COLLECTION);
+        goToDst(TAG_COLLECTION);
     }
 
     private void onLogouted() {
@@ -149,7 +149,7 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
         mNavigationView.getMenu().findItem(R.id.menu_logout).setVisible(false);
         mNavigationView.getMenu().findItem(R.id.menu_collection).setVisible(false);
         setupUser();
-        addBasePage(TAG_LOGIN);
+        goToDst(TAG_LOGIN);
     }
 
     private void setupUser() {
@@ -193,22 +193,6 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
         } else {
             mFragmentManager.popBackStack(tag, 0);
         }
-    }
-
-    private void addBasePage(String tag) {
-        Fragment targetFragment;
-        if (tag.equals(TAG_LOGIN)) {
-            targetFragment = new LoginFragment();
-        } else if (tag.equals(TAG_COLLECTION)) {
-            targetFragment = new CollectionFragment();
-        } else {
-            return;
-        }
-
-        mFragmentManager
-                .beginTransaction()
-                .add(R.id.drawer_main, targetFragment)
-                .commit();
     }
 
     private void openDrawer() {
