@@ -103,6 +103,8 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
                 break;
         }
 
+        closeDrawer();
+
         return false;
     }
 
