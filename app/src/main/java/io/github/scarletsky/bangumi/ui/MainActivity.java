@@ -10,7 +10,6 @@ import io.github.scarletsky.bangumi.ui.fragments.DrawerFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FragmentManager mFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,12 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         DrawerFragment mDrawerFragment = new DrawerFragment();
-        mFragmentManager = getSupportFragmentManager();
+        FragmentManager mFragmentManager = getSupportFragmentManager();
         mFragmentManager.beginTransaction().add(R.id.frame_main, mDrawerFragment).commit();
     }
-
-    public FragmentManager getFM() {
-        return mFragmentManager;
-    }
-
 }
