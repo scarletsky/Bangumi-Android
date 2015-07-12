@@ -101,14 +101,23 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
 
         // set card image
-        Picasso
-                .with(ctx)
-                .load(mSubject.getImages().getLarge())
-                .placeholder(R.drawable.ic_action_settings)
-                .error(R.drawable.ic_action_menu)
-                .fit()
-                .centerCrop()
-                .into(h.mCardImage);
+        if (mSubject.getImages() != null) {
+            Picasso
+                    .with(ctx)
+                    .load(mSubject.getImages().getLarge())
+                    .placeholder(R.drawable.ic_action_settings)
+                    .error(R.drawable.ic_action_menu)
+                    .fit()
+                    .centerCrop()
+                    .into(h.mCardImage);
+        } else {
+            Picasso
+                    .with(ctx)
+                    .load(R.drawable.ic_action_settings)
+                    .fit()
+                    .centerCrop()
+                    .into(h.mCardImage);
+        }
     }
 
     @Override

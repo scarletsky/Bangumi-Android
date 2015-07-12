@@ -178,12 +178,14 @@ public class ImageToolbarActivity extends AppCompatActivity {
             mCollapsingToolbar.setTitle(mSubject.getName());
         }
 
-        Picasso
-                .with(this)
-                .load(mSubject.getImages().getLarge())
-                .fit()
-                .centerCrop()
-                .into(mCollapingToolbarImage);
+        if (mSubject.getImages() != null) {
+            Picasso
+                    .with(this)
+                    .load(mSubject.getImages().getLarge())
+                    .fit()
+                    .centerCrop()
+                    .into(mCollapingToolbarImage);
+        }
 
 
     }
