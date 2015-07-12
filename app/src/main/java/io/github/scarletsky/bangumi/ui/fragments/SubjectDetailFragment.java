@@ -29,7 +29,9 @@ public class SubjectDetailFragment extends Fragment {
     private TextView mSubjectSummary;
     private TextView mSubjectType;
     private TextView mSubjectDate;
+    private TextView mSubjectDateLabel;
     private TextView mSubjectWeekday;
+    private TextView mSubjectWeekdayLabel;
 
     public static SubjectDetailFragment newInsatnce() {
         return new SubjectDetailFragment();
@@ -63,7 +65,9 @@ public class SubjectDetailFragment extends Fragment {
         mSubjectSummary = (TextView) getView().findViewById(R.id.subject_summary);
         mSubjectType = (TextView) getView().findViewById(R.id.subject_type);
         mSubjectDate = (TextView) getView().findViewById(R.id.subject_date);
+        mSubjectDateLabel = (TextView) getView().findViewById(R.id.subject_date_label);
         mSubjectWeekday = (TextView) getView().findViewById(R.id.subject_weekday);
+        mSubjectWeekdayLabel = (TextView) getView().findViewById(R.id.subject_weekday_label);
 
     }
 
@@ -76,6 +80,16 @@ public class SubjectDetailFragment extends Fragment {
         mSubjectDate.setText(mSubject.getAirDate());
         mSubjectWeekday.setText(mSubject.getAirWeekday());
         mSubjectType.setText(mSubject.getTypeDetail());
+
+        if (mSubject.getAirDate().equals("")) {
+            mSubjectDate.setVisibility(View.GONE);
+            mSubjectDateLabel.setVisibility(View.GONE);
+        }
+
+        if (mSubject.getAirWeekday().equals("")) {
+            mSubjectWeekday.setVisibility(View.GONE);
+            mSubjectWeekdayLabel.setVisibility(View.GONE);
+        }
 
         hideProgressBar();
         showSubjectDetail();
