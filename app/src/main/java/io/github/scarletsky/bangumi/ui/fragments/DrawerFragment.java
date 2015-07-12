@@ -163,8 +163,8 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
         TextView mUserNickname = (TextView) mNavigationView.findViewById(R.id.user_nickname);
 
         if (user == null) {
-            mUserAvatar.setImageResource(R.drawable.ic_action_menu);
-            mUserNickname.setText(getString(R.string.label_click_to_login));
+            mUserAvatar.setImageResource(R.drawable.ic_social_person);
+            mUserNickname.setText(getString(R.string.label_please_login_first));
         } else {
             mUserNickname.setText(user.getNickname());
             Picasso

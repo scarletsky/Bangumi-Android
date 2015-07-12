@@ -43,14 +43,14 @@
     <string name="toast_get_collections">已经获取最新的进度</string>
     <string name="toast_search_results_successfully">共搜索到 %1$d 条结果，只显示前 %2$d 条结果</string>
     <string name="toast_search_no_results">搜索不到结果</string>
-    <string name="toast_please_login_first">请先登录</string>
+    <string name="toast_please_login_first">@string/label_please_login_first</string>
 
     <!-- label (TextView) -->
     <string name="label_subject_summary">作品简介</string>
     <string name="label_subject_date">放送日期</string>
     <string name="label_subject_weekday">放送星期</string>
     <string name="label_subject_type">类型</string>
-    <string name="label_click_to_login">点击登录</string>
+    <string name="label_please_login_first">请先登录</string>
 
     <!-- dialog -->
     <string name="dialog_logining">登录中…</string>
