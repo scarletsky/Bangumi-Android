@@ -27,6 +27,7 @@ import io.github.scarletsky.bangumi.events.ClickNavigateIconEvent;
 import io.github.scarletsky.bangumi.events.GetSubjectEvent;
 import io.github.scarletsky.bangumi.events.SessionChangeEvent;
 import io.github.scarletsky.bangumi.ui.activities.ImageToolbarActivity;
+import io.github.scarletsky.bangumi.ui.activities.SearchFragment;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 import io.github.scarletsky.bangumi.utils.SessionManager;
 
@@ -40,6 +41,8 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
     private static final String TAG_SUBJECT_DETAIL = SubjectDetailFragment.class.getSimpleName();
     private static final String TAG_LOGIN = LoginFragment.class.getSimpleName();
     private static final String TAG_COLLECTION = CollectionFragment.class.getSimpleName();
+    private static final String TAG_SEARCH = SearchFragment.class.getSimpleName();
+
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
@@ -93,6 +96,9 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
                 break;
             case R.id.menu_calendar:
                 goToDst(TAG_CALENDAR);
+                break;
+            case R.id.menu_search:
+                goToDst(TAG_SEARCH);
                 break;
             case R.id.menu_settings:
                 Log.d(TAG, "clickkkk setttttting");
@@ -182,6 +188,8 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
                 targetFragment = new CalendarFragment();
             } else if (tag.equals(TAG_COLLECTION)) {
                 targetFragment = new CollectionFragment();
+            } else if (tag.equals(TAG_SEARCH)) {
+                targetFragment = new SearchFragment();
             }
 
             mFragmentManager

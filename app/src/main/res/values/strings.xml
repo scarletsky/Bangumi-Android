@@ -11,6 +11,7 @@
     <!-- menu -->
     <string name="menu_settings">设置</string>
     <string name="menu_logout">登出</string>
+    <string name="menu_search">搜索</string>
 
     <!-- tabs -->
     <string name="tabs_sunday">星期日</string>
@@ -27,6 +28,9 @@
     <string name="field_username">用户名</string>
     <string name="field_password">密码</string>
 
+    <!-- hint -->
+    <string name="hint_search_subject">请输入词条名字</string>
+
     <!-- error -->
     <string name="error_username_must_not_be_empty">用户名不能为空</string>
     <string name="error_password_must_not_be_empty">密码不能为空</string>
@@ -37,6 +41,8 @@
     <string name="toast_login_successfully">登录成功</string>
     <string name="toast_ep_update_successfully">进度已更新</string>
     <string name="toast_get_collections">已经获取最新的进度</string>
+    <string name="toast_search_results_successfully">共搜索到 %1$d 条结果，只显示前 %2$d 条结果</string>
+    <string name="toast_search_no_results">搜索不到结果</string>
 
     <!-- label (TextView) -->
     <string name="label_subject_summary">作品简介</string>

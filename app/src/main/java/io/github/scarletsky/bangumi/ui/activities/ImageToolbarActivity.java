@@ -120,7 +120,10 @@ public class ImageToolbarActivity extends AppCompatActivity {
                             mergeWithProgress(subjectEp.getEps(), subjectProgress.getEps());
                         }
 
-                        mEps.addAll(subjectEp.getEps());
+                        if (subjectEp.getEps() != null) {
+                            mEps.addAll(subjectEp.getEps());
+                        }
+
                         BusProvider.getInstance().post(new GetSubjectDetailEvent(mSubject));
                         BusProvider.getInstance().post(new GetSubjectEpsEvent(mEps));
                     }
