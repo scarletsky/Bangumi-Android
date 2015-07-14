@@ -25,11 +25,13 @@ import io.github.scarletsky.bangumi.BangumiApplication;
 import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.adapters.FragmentAdapter;
 import io.github.scarletsky.bangumi.api.ApiManager;
+import io.github.scarletsky.bangumi.api.models.Collection;
 import io.github.scarletsky.bangumi.api.models.Ep;
 import io.github.scarletsky.bangumi.api.models.Subject;
 import io.github.scarletsky.bangumi.api.models.SubjectEp;
 import io.github.scarletsky.bangumi.api.models.SubjectProgress;
 import io.github.scarletsky.bangumi.api.responses.BaseResponse;
+import io.github.scarletsky.bangumi.events.GetCollectionEvent;
 import io.github.scarletsky.bangumi.events.GetSubjectDetailEvent;
 import io.github.scarletsky.bangumi.events.GetSubjectEpsEvent;
 import io.github.scarletsky.bangumi.events.UpdateEpEvent;
@@ -52,6 +54,7 @@ public class ImageToolbarActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private ImageView mCollapingToolbarImage;
     private Subject mSubject;
+    private Collection mCollection;
     private List<Ep> mEps = new ArrayList<>();
     private List<SubjectProgress.Ep> mSubjectProgressEps = new ArrayList<>();
     private SessionManager session = BangumiApplication.getInstance().getSession();
@@ -97,6 +100,32 @@ public class ImageToolbarActivity extends AppCompatActivity {
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(pagerAdapter);
         tabs.setViewPager(pager);
+        tabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                switch (position) {
+                    case 0:
+                        BusProvider.getInstance().post(new GetSubjectDetailEvent(mSubject));
+                        break;
+                    case 1:
+                        BusProvider.getInstance().post(new GetSubjectEpsEvent(mEps));
+                        break;
+                    case 2:
+                        BusProvider.getInstance().post(new GetCollectionEvent(mCollection));
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
         setViewsForSubject();
         initProgressDialog();
@@ -113,35 +142,49 @@ public class ImageToolbarActivity extends AppCompatActivity {
                         session.getAuth(),
                         mSubject.getId(),
                         new Callback<SubjectProgress>() {
-                    @Override
-                    public void success(SubjectProgress subjectProgress, Response response) {
+                            @Override
+                            public void success(SubjectProgress subjectProgress, Response response) {
 
-                        // if subject has no progress, the `subjectProgress` will be null;
-                        // if not login, it will return error response,
-                        // so `subjectProgress.getEps()` will be null
-                        if (subjectProgress != null && subjectProgress.getEps() != null) {
-                            mergeWithProgress(subjectEp.getEps(), subjectProgress.getEps());
-                        }
+                                // if subject has no progress, the `subjectProgress` will be null;
+                                // if not login, it will return error response,
+                                // so `subjectProgress.getEps()` will be null
+                                if (subjectProgress != null && subjectProgress.getEps() != null) {
+                                    mergeWithProgress(subjectEp.getEps(), subjectProgress.getEps());
+                                }
 
-                        if (subjectEp.getEps() != null) {
-                            mEps.addAll(subjectEp.getEps());
-                        }
+                                if (subjectEp.getEps() != null) {
+                                    mEps.addAll(subjectEp.getEps());
+                                }
 
-                        BusProvider.getInstance().post(new GetSubjectDetailEvent(mSubject));
-                        BusProvider.getInstance().post(new GetSubjectEpsEvent(mEps));
-                    }
+                                BusProvider.getInstance().post(new GetSubjectDetailEvent(mSubject));
+                                BusProvider.getInstance().post(new GetSubjectEpsEvent(mEps));
+                            }
 
-                    @Override
-                    public void failure(RetrofitError error) {
+                            @Override
+                            public void failure(RetrofitError error) {
 
-                    }
-                });
-
+                            }
+                        });
             }
 
             @Override
             public void failure(RetrofitError error) {
 
+            }
+        });
+
+        ApiManager.getBangumiApi().getSubjectCollection(mSubject.getId(), session.getAuth(), new Callback<Collection>() {
+            @Override
+            public void success(Collection collection, Response response) {
+                if (collection.getLasttouch() != 0) {
+                    mCollection = collection;
+                    BusProvider.getInstance().post(new GetCollectionEvent(mCollection));
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                System.out.println(error.getMessage());
             }
         });
     }

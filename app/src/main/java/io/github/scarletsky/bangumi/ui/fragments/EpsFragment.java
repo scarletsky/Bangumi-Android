@@ -68,6 +68,7 @@ public class EpsFragment extends Fragment {
 
     @Subscribe
     public void onGetSubjectEpsEvent(GetSubjectEpsEvent event) {
+        this.data.clear();
         this.data.addAll(event.getEps());
         this.adapter.notifyDataSetChanged();
     }

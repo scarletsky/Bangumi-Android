@@ -23,6 +23,7 @@
     <string name="tabs_saturday">星期六</string>
     <string name="tabs_subject_info">作品信息</string>
     <string name="tabs_subject_progress">观看进度</string>
+    <string name="tabs_subject_grade">我的评价</string>
 
     <!-- field (EditText) -->
     <string name="field_username">用户名</string>
@@ -50,7 +51,13 @@
     <string name="label_subject_date">放送日期</string>
     <string name="label_subject_weekday">放送星期</string>
     <string name="label_subject_type">类型</string>
+    <string name="label_subject_status">状态</string>
+    <string name="label_subject_rating">评分</string>
+    <string name="label_subject_comment">吐槽</string>
     <string name="label_please_login_first">请先登录</string>
+    <string name="label_subject_status_default">暂无</string>
+    <string name="label_subject_rating_default">暂无</string>
+    <string name="label_subject_comment_default">暂无吐槽</string>
 
     <!-- dialog -->
     <string name="dialog_logining">登录中…</string>

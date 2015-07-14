@@ -13,6 +13,7 @@ import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.api.models.Calendar;
 import io.github.scarletsky.bangumi.ui.fragments.EpsFragment;
 import io.github.scarletsky.bangumi.ui.fragments.SubjectDetailFragment;
+import io.github.scarletsky.bangumi.ui.fragments.SubjectGradeFragment;
 import io.github.scarletsky.bangumi.ui.fragments.SubjectsRecyclerFragment;
 
 /**
@@ -41,10 +42,13 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
             return SubjectsRecyclerFragment.newInstance(position);
         } else {
 
-            if (position == 0) {
-                return SubjectDetailFragment.newInsatnce();
-            } else {
-                return EpsFragment.newInstance();
+            switch (position) {
+                case 0:
+                    return SubjectDetailFragment.newInsatnce();
+                case 1:
+                    return EpsFragment.newInstance();
+                default:
+                   return SubjectGradeFragment.newInstance();
             }
         }
     }
@@ -75,7 +79,8 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
             case SUBJECT_DETAIL:
                 mTitles = new String[] {
                         ctx.getString(R.string.tabs_subject_info),
-                        ctx.getString(R.string.tabs_subject_progress)
+                        ctx.getString(R.string.tabs_subject_progress),
+                        ctx.getString(R.string.tabs_subject_grade)
                 };
                 break;
         }

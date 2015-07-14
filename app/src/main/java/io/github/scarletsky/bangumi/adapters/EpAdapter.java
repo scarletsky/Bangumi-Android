@@ -56,7 +56,6 @@ public class EpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case AIR:
                 final int menu_bottom_sheet;
                 // set box style by watch status
-
                 switch (ep.getWatchStatus()) {
                     case WISH:
                         h.mBox.setBackgroundResource(R.color.primary_darker);
