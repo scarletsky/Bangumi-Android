@@ -3,6 +3,7 @@ package io.github.scarletsky.bangumi.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -53,18 +54,36 @@ public class EpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         switch (ep.getStatus()) {
             case AIR:
-                h.mSort.setTextColor(ctx.getResources().getColor(android.R.color.white));
-                h.mBox.setBackgroundResource(R.color.primary_light);
                 final int menu_bottom_sheet;
+                // set box style by watch status
 
-                if (ep.getWatchStatus() == Ep.WatchStatus.WATCHED) {
-                    h.mBox.setBackgroundResource(R.color.primary);
-                    menu_bottom_sheet = R.menu.menu_bottom_sheet_large;
-                } else {
-                    menu_bottom_sheet = R.menu.menu_bottom_sheet;
+                switch (ep.getWatchStatus()) {
+                    case WISH:
+                        h.mBox.setBackgroundResource(R.color.primary_darker);
+                        h.mSort.setTextColor(ctx.getResources().getColor(android.R.color.white));
+                        h.mSort.setPaintFlags(h.mSort.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+                        menu_bottom_sheet = R.menu.menu_bottom_sheet_large;
+                        break;
+                    case WATCHED:
+                        h.mBox.setBackgroundResource(R.color.primary);
+                        h.mSort.setTextColor(ctx.getResources().getColor(android.R.color.white));
+                        h.mSort.setPaintFlags(h.mSort.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+                        menu_bottom_sheet = R.menu.menu_bottom_sheet_large;
+                        break;
+                    case DROP:
+                        h.mBox.setBackgroundResource(R.color.grey_500);
+                        h.mSort.setPaintFlags(h.mSort.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                        menu_bottom_sheet = R.menu.menu_bottom_sheet_large;
+                        break;
+                    default:
+                        h.mBox.setBackgroundResource(R.color.primary_light);
+                        h.mSort.setPaintFlags(h.mSort.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+                        h.mSort.setTextColor(ctx.getResources().getColor(android.R.color.white));
+                        menu_bottom_sheet = R.menu.menu_bottom_sheet;
+
                 }
 
-
+                // set click listener
                 h.mBox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
