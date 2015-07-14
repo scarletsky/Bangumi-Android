@@ -7,11 +7,11 @@ import io.github.scarletsky.bangumi.api.models.Calendar;
 /**
  * Created by scarlex on 15-7-3.
  */
-public class LoadCalendarEvent {
+public class GetCalendarEvent {
 
     private List<Calendar> calendars;
 
-    public LoadCalendarEvent(List<Calendar> calendars) {
+    public GetCalendarEvent(List<Calendar> calendars) {
         this.calendars = calendars;
     }
 

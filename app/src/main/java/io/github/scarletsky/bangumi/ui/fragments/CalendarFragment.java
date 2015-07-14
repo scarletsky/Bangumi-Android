@@ -14,7 +14,7 @@ import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.adapters.FragmentAdapter;
 import io.github.scarletsky.bangumi.api.ApiManager;
 import io.github.scarletsky.bangumi.api.models.Calendar;
-import io.github.scarletsky.bangumi.events.LoadCalendarEvent;
+import io.github.scarletsky.bangumi.events.GetCalendarEvent;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -64,7 +64,7 @@ public class CalendarFragment extends BaseToolbarFragment {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if (mCalendars != null) {
-                    BusProvider.getInstance().post(new LoadCalendarEvent(mCalendars));
+                    BusProvider.getInstance().post(new GetCalendarEvent(mCalendars));
                 }
             }
 
@@ -83,7 +83,7 @@ public class CalendarFragment extends BaseToolbarFragment {
             @Override
             public void success(List<Calendar> calendars, Response response) {
                 mCalendars = calendars;
-                BusProvider.getInstance().post(new LoadCalendarEvent(mCalendars));
+                BusProvider.getInstance().post(new GetCalendarEvent(mCalendars));
             }
 
             @Override

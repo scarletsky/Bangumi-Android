@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,7 @@ import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.adapters.CardRecyclerAdapter;
 import io.github.scarletsky.bangumi.api.models.Calendar;
 import io.github.scarletsky.bangumi.api.models.Subject;
-import io.github.scarletsky.bangumi.events.LoadCalendarEvent;
+import io.github.scarletsky.bangumi.events.GetCalendarEvent;
 import io.github.scarletsky.bangumi.ui.widget.MarginDecoration;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 
@@ -97,7 +96,7 @@ public class SubjectsRecyclerFragment extends Fragment {
     }
 
     @Subscribe
-    public void onLoadCalendarEvent(LoadCalendarEvent event) {
+    public void onGetCalendarEvent(GetCalendarEvent event) {
         Calendar mCalendar = event.getCalendars().get(position);
         this.data.clear();
         this.data.addAll(mCalendar.getItems());
