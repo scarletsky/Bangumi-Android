@@ -116,9 +116,10 @@ public class ImageToolbarActivity extends AppCompatActivity {
                     @Override
                     public void success(SubjectProgress subjectProgress, Response response) {
 
+                        // if subject has no progress, the `subjectProgress` will be null;
                         // if not login, it will return error response,
                         // so `subjectProgress.getEps()` will be null
-                        if (subjectProgress.getEps() != null) {
+                        if (subjectProgress != null && subjectProgress.getEps() != null) {
                             mergeWithProgress(subjectEp.getEps(), subjectProgress.getEps());
                         }
 
