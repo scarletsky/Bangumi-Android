@@ -5,10 +5,10 @@ import io.github.scarletsky.bangumi.api.models.Collection;
 /**
  * Created by scarlex on 15-7-15.
  */
-public class UpdateCollectionEvent {
+public class UpdateSubjectGradeEvent {
     private Collection collection;
 
-    public UpdateCollectionEvent(Collection collection) {
+    public UpdateSubjectGradeEvent(Collection collection) {
         this.collection = collection;
     }
 

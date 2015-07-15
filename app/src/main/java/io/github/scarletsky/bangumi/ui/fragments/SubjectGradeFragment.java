@@ -2,7 +2,6 @@ package io.github.scarletsky.bangumi.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,7 @@ import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.api.models.Collection;
 import io.github.scarletsky.bangumi.events.EditSubjectGradeEvent;
 import io.github.scarletsky.bangumi.events.GetCollectionEvent;
-import io.github.scarletsky.bangumi.events.UpdateCollectionEvent;
+import io.github.scarletsky.bangumi.events.UpdateSubjectGradeEvent;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 import io.github.scarletsky.bangumi.utils.ToastManager;
 
@@ -108,7 +107,7 @@ public class SubjectGradeFragment extends Fragment implements RadioGroup.OnCheck
                 mCollection.setRating(mSubjectRatingField.getValue());
                 mCollection.setComment(mSubjectCommentField.getText().toString());
 
-                BusProvider.getInstance().post(new UpdateCollectionEvent(mCollection));
+                BusProvider.getInstance().post(new UpdateSubjectGradeEvent(mCollection));
             }
         } else {
             showEditFields();

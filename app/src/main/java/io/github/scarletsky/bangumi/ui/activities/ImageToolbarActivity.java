@@ -1,13 +1,11 @@
 package io.github.scarletsky.bangumi.ui.activities;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -15,7 +13,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.astuetz.PagerSlidingTabStrip;
 import com.google.gson.Gson;
-import com.squareup.otto.Bus;
 import com.squareup.otto.Subscribe;
 import com.squareup.picasso.Picasso;
 
@@ -36,7 +33,7 @@ import io.github.scarletsky.bangumi.events.EditSubjectGradeEvent;
 import io.github.scarletsky.bangumi.events.GetCollectionEvent;
 import io.github.scarletsky.bangumi.events.GetSubjectDetailEvent;
 import io.github.scarletsky.bangumi.events.GetSubjectEpsEvent;
-import io.github.scarletsky.bangumi.events.UpdateCollectionEvent;
+import io.github.scarletsky.bangumi.events.UpdateSubjectGradeEvent;
 import io.github.scarletsky.bangumi.events.UpdateEpEvent;
 import io.github.scarletsky.bangumi.events.UpdatedEpEvent;
 import io.github.scarletsky.bangumi.utils.BusProvider;
@@ -236,7 +233,7 @@ public class ImageToolbarActivity extends AppCompatActivity implements View.OnCl
     }
 
     @Subscribe
-    public void onUpdateCollectionEvent(UpdateCollectionEvent event) {
+    public void onUpdateSubjectGradeEvent(UpdateSubjectGradeEvent event) {
 
         showProgressDialog();
 
