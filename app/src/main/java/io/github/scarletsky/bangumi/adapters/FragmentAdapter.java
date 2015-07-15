@@ -9,12 +9,14 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.scarletsky.bangumi.BangumiApplication;
 import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.api.models.Calendar;
 import io.github.scarletsky.bangumi.ui.fragments.EpsFragment;
 import io.github.scarletsky.bangumi.ui.fragments.SubjectDetailFragment;
 import io.github.scarletsky.bangumi.ui.fragments.SubjectGradeFragment;
 import io.github.scarletsky.bangumi.ui.fragments.SubjectsRecyclerFragment;
+import io.github.scarletsky.bangumi.utils.SessionManager;
 
 /**
  * Created by scarlex on 15-7-3.
@@ -24,6 +26,8 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
     private static final String TAG = FragmentAdapter.class.getSimpleName();
     private String[] mTitles;
     private Context ctx;
+    private SessionManager session = BangumiApplication.getInstance().getSession();
+
 
     public enum PagerType {
         CALENDAR,
@@ -77,11 +81,19 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
                 };
                 break;
             case SUBJECT_DETAIL:
-                mTitles = new String[] {
-                        ctx.getString(R.string.tabs_subject_info),
-                        ctx.getString(R.string.tabs_subject_progress),
-                        ctx.getString(R.string.tabs_subject_grade)
-                };
+
+                if (session.isLogin()) {
+                    mTitles = new String[] {
+                            ctx.getString(R.string.tabs_subject_info),
+                            ctx.getString(R.string.tabs_subject_progress),
+                            ctx.getString(R.string.tabs_subject_grade)
+                    };
+                } else {
+                    mTitles = new String[] {
+                            ctx.getString(R.string.tabs_subject_info),
+                            ctx.getString(R.string.tabs_subject_progress)
+                    };
+                }
                 break;
         }
     }
