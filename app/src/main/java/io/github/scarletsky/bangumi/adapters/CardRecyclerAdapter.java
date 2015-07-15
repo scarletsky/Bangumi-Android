@@ -105,15 +105,15 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Picasso
                     .with(ctx)
                     .load(mSubject.getImages().getLarge())
-                    .placeholder(R.drawable.ic_action_settings)
-                    .error(R.drawable.ic_action_menu)
+                    .placeholder(R.drawable.img_on_load)
+                    .error(R.drawable.img_on_error)
                     .fit()
                     .centerCrop()
                     .into(h.mCardImage);
         } else {
             Picasso
                     .with(ctx)
-                    .load(R.drawable.ic_action_settings)
+                    .load(R.drawable.img_on_load)
                     .fit()
                     .centerCrop()
                     .into(h.mCardImage);
