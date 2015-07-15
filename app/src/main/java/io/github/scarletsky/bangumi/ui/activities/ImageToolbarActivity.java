@@ -3,6 +3,7 @@ package io.github.scarletsky.bangumi.ui.activities;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -31,9 +32,11 @@ import io.github.scarletsky.bangumi.api.models.Subject;
 import io.github.scarletsky.bangumi.api.models.SubjectEp;
 import io.github.scarletsky.bangumi.api.models.SubjectProgress;
 import io.github.scarletsky.bangumi.api.responses.BaseResponse;
+import io.github.scarletsky.bangumi.events.EditSubjectGradeEvent;
 import io.github.scarletsky.bangumi.events.GetCollectionEvent;
 import io.github.scarletsky.bangumi.events.GetSubjectDetailEvent;
 import io.github.scarletsky.bangumi.events.GetSubjectEpsEvent;
+import io.github.scarletsky.bangumi.events.UpdateCollectionEvent;
 import io.github.scarletsky.bangumi.events.UpdateEpEvent;
 import io.github.scarletsky.bangumi.events.UpdatedEpEvent;
 import io.github.scarletsky.bangumi.utils.BusProvider;
@@ -46,13 +49,17 @@ import retrofit.client.Response;
 /**
  * Created by scarlex on 15-7-9.
  */
-public class ImageToolbarActivity extends AppCompatActivity {
+public class ImageToolbarActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = ImageToolbarActivity.class.getSimpleName();
+
     private MaterialDialog mProgressDialog;
     private CollapsingToolbarLayout mCollapsingToolbar;
     private Toolbar mToolbar;
     private ImageView mCollapingToolbarImage;
+    private FloatingActionButton mFabEdit;
+    private FloatingActionButton mFabDone;
+
     private Subject mSubject;
     private Collection mCollection;
     private List<Ep> mEps = new ArrayList<>();
@@ -79,6 +86,11 @@ public class ImageToolbarActivity extends AppCompatActivity {
         String subjectStr = getIntent().getStringExtra("subject");
         mSubject = new Gson().fromJson(subjectStr, Subject.class);
 
+        mFabEdit = (FloatingActionButton) findViewById(R.id.fab_edit);
+        mFabDone = (FloatingActionButton) findViewById(R.id.fab_done);
+        mFabEdit.setOnClickListener(this);
+        mFabDone.setOnClickListener(this);
+
         mToolbar = (Toolbar) findViewById(R.id.collapsing_toolbar);
         mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_wrapper);
         mCollapingToolbarImage = (ImageView) findViewById(R.id.collapsing_toolbar_image);
@@ -103,6 +115,13 @@ public class ImageToolbarActivity extends AppCompatActivity {
         tabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                if (position == 2) {
+                    onViewEditing(false);
+                } else {
+                    hideFab();
+                }
+
                 switch (position) {
                     case 0:
                         BusProvider.getInstance().post(new GetSubjectDetailEvent(mSubject));
@@ -197,23 +216,56 @@ public class ImageToolbarActivity extends AppCompatActivity {
                 event.getStatus().getStr(),
                 session.getAuth(),
                 new Callback<BaseResponse>() {
-            @Override
-            public void success(BaseResponse baseResponse, Response response) {
-                hideProgressDialog();
-                System.out.println(baseResponse.getError());
+                    @Override
+                    public void success(BaseResponse baseResponse, Response response) {
+                        hideProgressDialog();
+                        System.out.println(baseResponse.getError());
 
-                if (baseResponse.getCode() == 200) {
-                    BusProvider.getInstance().post(new UpdatedEpEvent(event.getStatus().getWatchStatusId(), event.getPosition()));
-                    ToastManager.show(ImageToolbarActivity.this, getString(R.string.toast_ep_update_successfully));
+                        if (baseResponse.getCode() == 200) {
+                            BusProvider.getInstance().post(new UpdatedEpEvent(event.getStatus().getWatchStatusId(), event.getPosition()));
+                            ToastManager.show(ImageToolbarActivity.this, getString(R.string.toast_ep_update_successfully));
+                        }
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        hideProgressDialog();
+
+                    }
+                });
+    }
+
+    @Subscribe
+    public void onUpdateCollectionEvent(UpdateCollectionEvent event) {
+
+        showProgressDialog();
+
+        ApiManager.getBangumiApi().updateCollection(
+                mSubject.getId(),
+                event.getCollection().getStatus().getType(),
+                event.getCollection().getRating(),
+                event.getCollection().getCommentOriginal(),
+                session.getAuth(),
+                new Callback<Collection>() {
+                    @Override
+                    public void success(Collection collection, Response response) {
+                        onViewEditing(false);
+                        hideProgressDialog();
+
+                        if (collection.getLasttouch() != 0) {
+                            BusProvider.getInstance().post(new GetCollectionEvent(collection));
+                            ToastManager.show(ImageToolbarActivity.this, getString(R.string.toast_collection_update_successfully));
+                        }
+
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        hideProgressDialog();
+
+                    }
                 }
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                hideProgressDialog();
-
-            }
-        });
+        );
     }
 
     private void setViewsForSubject() {
@@ -271,4 +323,43 @@ public class ImageToolbarActivity extends AppCompatActivity {
     private void hideProgressDialog() {
         mProgressDialog.dismiss();
     }
+
+    private void clickEditFab() {
+        BusProvider.getInstance().post(new EditSubjectGradeEvent());
+        onViewEditing(true);
+    }
+
+    private void clickDoneFab() {
+        EditSubjectGradeEvent event = new EditSubjectGradeEvent();
+        event.setIsFinish(true);
+        BusProvider.getInstance().post(event);
+    }
+
+    private void onViewEditing(boolean isOnEdit) {
+        if (isOnEdit) {
+            mFabDone.setVisibility(View.VISIBLE);
+            mFabEdit.setVisibility(View.GONE);
+        } else {
+            mFabDone.setVisibility(View.GONE);
+            mFabEdit.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void hideFab() {
+        mFabDone.setVisibility(View.GONE);
+        mFabEdit.setVisibility(View.GONE);
+    }
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.fab_edit:
+                clickEditFab();
+                break;
+            case R.id.fab_done:
+                clickDoneFab();
+                break;
+        }
+    }
+
 }

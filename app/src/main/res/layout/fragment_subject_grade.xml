@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="fill_vertical"
     android:layout_marginBottom="?attr/actionBarSize"
-    android:background="@android:color/white"
-    >
+    android:background="@android:color/white">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/base_padding"
-        android:background="@android:color/white"
         android:orientation="vertical"
         >
 
@@ -46,6 +44,43 @@
                 style="@style/text_primary"
                 />
 
+            <RadioGroup
+                android:id="@+id/subject_status_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/base_padding"
+                android:orientation="vertical"
+                android:visibility="gone"
+                >
+
+                <RadioButton
+                    android:id="@+id/subject_status_wish"
+                    style="@style/radio"
+                    android:text="@string/wish"/>
+
+                <RadioButton
+                    android:id="@+id/subject_status_watched"
+                    style="@style/radio"
+                    android:text="@string/watched"/>
+
+                <RadioButton
+                    android:id="@+id/subject_status_watching"
+                    style="@style/radio"
+                    android:text="@string/watching"/>
+
+                <RadioButton
+                    android:id="@+id/subject_status_on_hold"
+                    style="@style/radio"
+                    android:text="@string/on_hold"/>
+
+                <RadioButton
+                    android:id="@+id/subject_status_drop"
+                    style="@style/radio"
+                    android:text="@string/drop_collection"
+                    />
+
+            </RadioGroup>
+
             <!-- rating -->
             <TextView
                 android:id="@+id/subject_rating_label"
@@ -63,6 +98,21 @@
                 style="@style/text_primary"
                 />
 
+            <com.rey.material.widget.Slider
+                android:id="@+id/subject_rating_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="@dimen/base_padding"
+                android:visibility="gone"
+                style="@style/Material.Widget.Slider"
+                app:sl_primaryColor="@color/primary"
+                app:sl_secondaryColor="@color/grey_300"
+                app:sl_discreteMode="true"
+                app:sl_minValue="0"
+                app:sl_maxValue="10"
+                app:sl_value="0"/>
+
             <!-- comment -->
             <TextView
                 android:id="@+id/subject_comment_label"
@@ -78,6 +128,15 @@
                 android:layout_height="wrap_content"
                 android:text="@string/label_subject_comment_default"
                 style="@style/text_primary"
+                />
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/subject_comment_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/hint_please_type_comments"
+                android:visibility="gone"
+                app:met_primaryColor="@color/primary"
                 />
 
         </LinearLayout>

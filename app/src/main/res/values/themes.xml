@@ -15,5 +15,8 @@
         <!--Window color-->
         <item name="android:windowBackground">@android:color/white</item>
 
+        <!-- for uncheck radio button-->
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+
     </style>
 </resources>

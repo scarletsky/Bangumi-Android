@@ -59,4 +59,16 @@
         <item name="android:background">@drawable/button_rectangle</item>
     </style>
 
+    <style name="fab">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/base_space</item>
+        <item name="android:layout_gravity">end|bottom</item>
+    </style>
+
+    <style name="radio">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
 </resources>

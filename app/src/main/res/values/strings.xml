@@ -31,6 +31,7 @@
 
     <!-- hint -->
     <string name="hint_search_subject">请输入词条名字</string>
+    <string name="hint_please_type_comments">请吐槽</string>
 
     <!-- error -->
     <string name="error_username_must_not_be_empty">用户名不能为空</string>
@@ -45,6 +46,8 @@
     <string name="toast_search_results_successfully">共搜索到 %1$d 条结果，只显示前 %2$d 条结果</string>
     <string name="toast_search_no_results">搜索不到结果</string>
     <string name="toast_please_login_first">@string/label_please_login_first</string>
+    <string name="toast_please_choose_collection_status">请选择观看状态</string>
+    <string name="toast_collection_update_successfully">已更新</string>
 
     <!-- label (TextView) -->
     <string name="label_subject_summary">作品简介</string>
@@ -63,10 +66,12 @@
     <string name="dialog_logining">登录中…</string>
     <string name="dialog_ep_updating">进度更新中</string>
 
-    <string name="queue">想看</string>
+    <string name="wish">想看</string>
+    <string name="queue">@string/wish</string>
     <string name="watched">看过</string>
     <string name="watching">在看</string>
     <string name="on_hold">搁置</string>
     <string name="drop">抛弃</string>
+    <string name="drop_collection">弃番</string>
     <string name="undo">撤销</string>
 </resources>

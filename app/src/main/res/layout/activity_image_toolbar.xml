@@ -58,4 +58,22 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_edit"
+        android:src="@drawable/ic_action_mode_edit"
+        style="@style/fab"
+        app:elevation="6dp"
+        app:borderWidth="0dp"
+        android:visibility="gone"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_done"
+        android:src="@drawable/ic_action_done"
+        style="@style/fab"
+        app:elevation="6dp"
+        app:borderWidth="0dp"
+        android:visibility="gone"
+        />
+
 </android.support.design.widget.CoordinatorLayout>
