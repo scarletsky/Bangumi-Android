@@ -1,4 +1,4 @@
-package io.github.scarletsky.bangumi.ui;
+package io.github.scarletsky.bangumi.ui.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;

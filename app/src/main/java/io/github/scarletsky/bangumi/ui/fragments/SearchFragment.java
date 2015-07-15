@@ -22,7 +22,7 @@ import io.github.scarletsky.bangumi.adapters.CardRecyclerAdapter;
 import io.github.scarletsky.bangumi.api.ApiManager;
 import io.github.scarletsky.bangumi.api.models.Subject;
 import io.github.scarletsky.bangumi.api.responses.SearchResponse;
-import io.github.scarletsky.bangumi.ui.MainActivity;
+import io.github.scarletsky.bangumi.ui.activities.MainActivity;
 import io.github.scarletsky.bangumi.ui.widget.MarginDecoration;
 import io.github.scarletsky.bangumi.utils.ToastManager;
 import retrofit.Callback;

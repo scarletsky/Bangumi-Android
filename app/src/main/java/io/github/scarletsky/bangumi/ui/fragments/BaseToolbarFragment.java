@@ -4,12 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.events.ClickNavigateIconEvent;
-import io.github.scarletsky.bangumi.ui.MainActivity;
+import io.github.scarletsky.bangumi.ui.activities.MainActivity;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 
 /**
