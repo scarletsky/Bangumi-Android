@@ -4,18 +4,13 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.github.scarletsky.bangumi.BangumiApplication;
 import io.github.scarletsky.bangumi.R;
-import io.github.scarletsky.bangumi.api.models.Calendar;
 import io.github.scarletsky.bangumi.ui.fragments.EpsFragment;
 import io.github.scarletsky.bangumi.ui.fragments.SubjectDetailFragment;
 import io.github.scarletsky.bangumi.ui.fragments.SubjectGradeFragment;
-import io.github.scarletsky.bangumi.ui.fragments.SubjectsRecyclerFragment;
+import io.github.scarletsky.bangumi.ui.fragments.CalendarPageFragment;
 import io.github.scarletsky.bangumi.utils.SessionManager;
 
 /**
@@ -43,7 +38,7 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (mTitles.length == 7) {
-            return SubjectsRecyclerFragment.newInstance(position);
+            return CalendarPageFragment.newInstance(position);
         } else {
 
             switch (position) {

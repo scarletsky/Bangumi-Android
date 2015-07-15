@@ -25,7 +25,7 @@ import io.github.scarletsky.bangumi.utils.BusProvider;
 /**
  * Created by scarlex on 15-7-3.
  */
-public class SubjectsRecyclerFragment extends Fragment {
+public class CalendarPageFragment extends Fragment {
 
     private Activity ctx;
     private List<Subject> data = new ArrayList<>();
@@ -33,15 +33,15 @@ public class SubjectsRecyclerFragment extends Fragment {
     private CardRecyclerAdapter adapter;
     private SwipeRefreshLayout mSwipeRefresh;
 
-    public static SubjectsRecyclerFragment newInstance(int position) {
+    public static CalendarPageFragment newInstance(int position) {
 
-        SubjectsRecyclerFragment mSubjectsRecyclerFragment = new SubjectsRecyclerFragment();
+        CalendarPageFragment mCalendarPageFragment = new CalendarPageFragment();
 
         Bundle args = new Bundle();
         args.putInt("ARG_POSITION", position);
-        mSubjectsRecyclerFragment.setArguments(args);
+        mCalendarPageFragment.setArguments(args);
 
-        return mSubjectsRecyclerFragment;
+        return mCalendarPageFragment;
     }
 
     @Override
