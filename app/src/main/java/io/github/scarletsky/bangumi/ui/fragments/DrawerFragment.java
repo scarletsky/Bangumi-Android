@@ -26,6 +26,7 @@ import io.github.scarletsky.bangumi.events.ClickNavigateIconEvent;
 import io.github.scarletsky.bangumi.events.GetSubjectEvent;
 import io.github.scarletsky.bangumi.events.SessionChangeEvent;
 import io.github.scarletsky.bangumi.ui.activities.ImageToolbarActivity;
+import io.github.scarletsky.bangumi.ui.activities.WebviewActivity;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 import io.github.scarletsky.bangumi.utils.SessionManager;
 
@@ -101,6 +102,10 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
             case R.id.menu_logout:
                 mSession.logout();
                 break;
+            case R.id.menu_rakuen:
+                Intent i = new Intent(getActivity(), WebviewActivity.class);
+                startActivity(i);
+                return true;
         }
 
         closeDrawer();

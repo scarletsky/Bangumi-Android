@@ -28,6 +28,12 @@
             android:screenOrientation="portrait"
             >
         </activity>
+
+        <activity android:name=".ui.activities.WebviewActivity"
+            android:label="@string/title_rakuen"
+            android:screenOrientation="portrait"
+            >
+        </activity>
     </application>
 
 </manifest>
