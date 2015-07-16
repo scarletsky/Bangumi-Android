@@ -93,6 +93,23 @@
                 style="@style/text_primary"
                 />
 
+            <!-- web -->
+            <TextView
+                android:id="@+id/subject_web_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_subject_web"
+                style="@style/label_primary"
+                />
+
+            <TextView
+                android:id="@+id/subject_web"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                style="@style/text_primary"
+                />
+
         </LinearLayout>
 
     </LinearLayout>

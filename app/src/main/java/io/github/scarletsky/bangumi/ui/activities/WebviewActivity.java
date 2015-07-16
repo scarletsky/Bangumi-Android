@@ -71,7 +71,12 @@ public class WebviewActivity extends AppCompatActivity {
             }
         });
 
-        mWebview.loadUrl(BangumiApi.URL_RAKUEN);
+        String subjectUrl = getIntent().getStringExtra("subjectUrl");
+        if (subjectUrl != null) {
+            mWebview.loadUrl(subjectUrl);
+        } else {
+            mWebview.loadUrl(BangumiApi.URL_RAKUEN);
+        }
     }
 
     @Override

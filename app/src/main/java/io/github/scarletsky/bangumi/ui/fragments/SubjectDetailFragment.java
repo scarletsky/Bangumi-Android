@@ -1,5 +1,7 @@
 package io.github.scarletsky.bangumi.ui.fragments;
 
+import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +18,7 @@ import com.squareup.otto.Subscribe;
 import io.github.scarletsky.bangumi.R;
 import io.github.scarletsky.bangumi.api.models.Subject;
 import io.github.scarletsky.bangumi.events.GetSubjectDetailEvent;
+import io.github.scarletsky.bangumi.ui.activities.WebviewActivity;
 import io.github.scarletsky.bangumi.utils.BusProvider;
 
 /**
@@ -32,6 +35,7 @@ public class SubjectDetailFragment extends Fragment {
     private TextView mSubjectDateLabel;
     private TextView mSubjectWeekday;
     private TextView mSubjectWeekdayLabel;
+    private TextView mSubjectWeb;
 
     public static SubjectDetailFragment newInsatnce() {
         return new SubjectDetailFragment();
@@ -68,18 +72,29 @@ public class SubjectDetailFragment extends Fragment {
         mSubjectDateLabel = (TextView) getView().findViewById(R.id.subject_date_label);
         mSubjectWeekday = (TextView) getView().findViewById(R.id.subject_weekday);
         mSubjectWeekdayLabel = (TextView) getView().findViewById(R.id.subject_weekday_label);
+        mSubjectWeb = (TextView) getView().findViewById(R.id.subject_web);
 
     }
 
     @Subscribe
     public void onGetSubjectDetailEvent(GetSubjectDetailEvent event) {
 
-        Subject mSubject = event.getSubject();
+        final Subject mSubject = event.getSubject();
 
         mSubjectSummary.setText(mSubject.getSummary().trim());
         mSubjectDate.setText(mSubject.getAirDate());
         mSubjectWeekday.setText(mSubject.getAirWeekday());
         mSubjectType.setText(mSubject.getTypeDetail());
+        mSubjectWeb.setText(mSubject.getUrl());
+        mSubjectWeb.setPaintFlags(mSubjectWeb.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        mSubjectWeb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), WebviewActivity.class);
+                i.putExtra("subjectUrl", mSubject.getUrl());
+                startActivity(i);
+            }
+        });
 
         if (mSubject.getAirDate().equals("")) {
             mSubjectDate.setVisibility(View.GONE);
