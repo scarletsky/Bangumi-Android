@@ -27,6 +27,8 @@ public class CalendarFragment extends BaseToolbarFragment {
 
     private static final String TAG = CalendarFragment.class.getSimpleName();
     private List<Calendar> mCalendars;
+    private int currentPosition = 0;
+
 
     @Override
     public void onResume() {
@@ -63,8 +65,14 @@ public class CalendarFragment extends BaseToolbarFragment {
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (mCalendars != null) {
-                    BusProvider.getInstance().post(new GetCalendarEvent(mCalendars));
+                if (currentPosition != position) {
+
+                    currentPosition = position;
+
+                    if (mCalendars != null) {
+                        BusProvider.getInstance().post(new GetCalendarEvent(mCalendars));
+                    }
+
                 }
             }
 

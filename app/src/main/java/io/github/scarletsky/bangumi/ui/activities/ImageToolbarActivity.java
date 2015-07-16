@@ -52,7 +52,6 @@ public class ImageToolbarActivity extends AppCompatActivity implements View.OnCl
 
     private MaterialDialog mProgressDialog;
     private CollapsingToolbarLayout mCollapsingToolbar;
-    private Toolbar mToolbar;
     private ImageView mCollapingToolbarImage;
     private FloatingActionButton mFabEdit;
     private FloatingActionButton mFabDone;
@@ -62,6 +61,7 @@ public class ImageToolbarActivity extends AppCompatActivity implements View.OnCl
     private List<Ep> mEps = new ArrayList<>();
     private List<SubjectProgress.Ep> mSubjectProgressEps = new ArrayList<>();
     private SessionManager session = BangumiApplication.getInstance().getSession();
+    private int currentPosition = 0;
 
     @Override
     public void onResume() {
@@ -88,7 +88,7 @@ public class ImageToolbarActivity extends AppCompatActivity implements View.OnCl
         mFabEdit.setOnClickListener(this);
         mFabDone.setOnClickListener(this);
 
-        mToolbar = (Toolbar) findViewById(R.id.collapsing_toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.collapsing_toolbar);
         mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_wrapper);
         mCollapingToolbarImage = (ImageView) findViewById(R.id.collapsing_toolbar_image);
 
@@ -113,22 +113,25 @@ public class ImageToolbarActivity extends AppCompatActivity implements View.OnCl
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-                if (position == 2) {
-                    onViewEditing(false);
-                } else {
-                    hideFab();
-                }
+                if (currentPosition != position) {
 
-                switch (position) {
-                    case 0:
-                        BusProvider.getInstance().post(new GetSubjectDetailEvent(mSubject));
-                        break;
-                    case 1:
-                        BusProvider.getInstance().post(new GetSubjectEpsEvent(mEps));
-                        break;
-                    case 2:
-                        BusProvider.getInstance().post(new GetCollectionEvent(mCollection));
-                        break;
+                    currentPosition = position;
+
+                    switch (position) {
+                        case 0:
+                            BusProvider.getInstance().post(new GetSubjectDetailEvent(mSubject));
+                            hideFab();
+                            break;
+                        case 1:
+                            BusProvider.getInstance().post(new GetSubjectEpsEvent(mEps));
+                            hideFab();
+                            break;
+                        case 2:
+                            BusProvider.getInstance().post(new GetCollectionEvent(mCollection));
+                            onViewEditing(false);
+                            break;
+                    }
+
                 }
             }
 
