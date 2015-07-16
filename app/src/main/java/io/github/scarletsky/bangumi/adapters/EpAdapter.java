@@ -71,6 +71,7 @@ public class EpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         break;
                     case DROP:
                         h.mBox.setBackgroundResource(R.color.grey_500);
+                        h.mSort.setTextColor(ctx.getResources().getColor(android.R.color.white));
                         h.mSort.setPaintFlags(h.mSort.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                         menu_bottom_sheet = R.menu.menu_bottom_sheet_large;
                         break;
