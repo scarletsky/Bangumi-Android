@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    >
+
+    <include
+        android:id="@+id/toolbar_wrapper"
+        layout="@layout/fragment_base_toolbar"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/base_padding"
+        android:orientation="vertical"
+        >
+
+        <!-- about bangumi -->
+        <TextView
+            android:id="@+id/about_bangumi_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_about_bangumi"
+            style="@style/label_primary"
+            />
+
+        <TextView
+            android:id="@+id/about_bangumi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_about_bangumi_detail"
+            style="@style/text_primary"
+            />
+
+        <!-- about this app -->
+        <TextView
+            android:id="@+id/about_app_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_about_app"
+            style="@style/label_primary"
+            />
+
+        <TextView
+            android:id="@+id/about_app"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_about_app_detail"
+            style="@style/text_primary"
+            />
+
+    </LinearLayout>
+</LinearLayout>

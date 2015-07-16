@@ -41,6 +41,7 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
     private static final String TAG_LOGIN = LoginFragment.class.getSimpleName();
     private static final String TAG_COLLECTION = CollectionFragment.class.getSimpleName();
     private static final String TAG_SEARCH = SearchFragment.class.getSimpleName();
+    private static final String TAG_ABOUT = AboutFragment.class.getSimpleName();
 
 
     private DrawerLayout mDrawerLayout;
@@ -98,6 +99,9 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
                 break;
             case R.id.menu_search:
                 goToDst(TAG_SEARCH);
+                break;
+            case R.id.menu_about:
+                goToDst(TAG_ABOUT);
                 break;
             case R.id.menu_logout:
                 mSession.logout();
@@ -193,6 +197,8 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
                 targetFragment = new CollectionFragment();
             } else if (tag.equals(TAG_SEARCH)) {
                 targetFragment = new SearchFragment();
+            } else if (tag.equals(TAG_ABOUT)) {
+                targetFragment = new AboutFragment();
             }
 
             mFragmentManager
