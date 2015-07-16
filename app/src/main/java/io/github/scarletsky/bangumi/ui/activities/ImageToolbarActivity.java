@@ -27,7 +27,7 @@ import io.github.scarletsky.bangumi.api.models.Collection;
 import io.github.scarletsky.bangumi.api.models.Ep;
 import io.github.scarletsky.bangumi.api.models.Subject;
 import io.github.scarletsky.bangumi.api.models.SubjectEp;
-import io.github.scarletsky.bangumi.api.models.SubjectProgress;
+import io.github.scarletsky.bangumi.api.responses.SubjectProgressResponse;
 import io.github.scarletsky.bangumi.api.responses.BaseResponse;
 import io.github.scarletsky.bangumi.events.EditSubjectGradeEvent;
 import io.github.scarletsky.bangumi.events.GetCollectionEvent;
@@ -59,7 +59,7 @@ public class ImageToolbarActivity extends AppCompatActivity implements View.OnCl
     private Subject mSubject;
     private Collection mCollection;
     private List<Ep> mEps = new ArrayList<>();
-    private List<SubjectProgress.Ep> mSubjectProgressEps = new ArrayList<>();
+    private List<SubjectProgressResponse.Ep> mSubjectProgressEps = new ArrayList<>();
     private SessionManager session = BangumiApplication.getInstance().getSession();
     private int currentPosition = 0;
 
@@ -160,15 +160,15 @@ public class ImageToolbarActivity extends AppCompatActivity implements View.OnCl
                         session.getUserId(),
                         session.getAuth(),
                         mSubject.getId(),
-                        new Callback<SubjectProgress>() {
+                        new Callback<SubjectProgressResponse>() {
                             @Override
-                            public void success(SubjectProgress subjectProgress, Response response) {
+                            public void success(SubjectProgressResponse subjectProgressResponse, Response response) {
 
-                                // if subject has no progress, the `subjectProgress` will be null;
+                                // if subject has no progress, the `subjectProgressResponse` will be null;
                                 // if not login, it will return error response,
-                                // so `subjectProgress.getEps()` will be null
-                                if (subjectProgress != null && subjectProgress.getEps() != null) {
-                                    mergeWithProgress(subjectEp.getEps(), subjectProgress.getEps());
+                                // so `subjectProgressResponse.getEps()` will be null
+                                if (subjectProgressResponse != null && subjectProgressResponse.getEps() != null) {
+                                    mergeWithProgress(subjectEp.getEps(), subjectProgressResponse.getEps());
                                 }
 
                                 if (subjectEp.getEps() != null) {
@@ -289,9 +289,9 @@ public class ImageToolbarActivity extends AppCompatActivity implements View.OnCl
     }
 
     // set subject eps with progress
-    private void mergeWithProgress(List<Ep> eps, List<SubjectProgress.Ep> epsProgress) {
+    private void mergeWithProgress(List<Ep> eps, List<SubjectProgressResponse.Ep> epsProgress) {
 
-        for (SubjectProgress.Ep epProgress : epsProgress) {
+        for (SubjectProgressResponse.Ep epProgress : epsProgress) {
 
             for (Ep ep : eps) {
 
