@@ -108,7 +108,6 @@ public class LoginFragment extends BaseToolbarFragment {
             @Override
             public void failure(RetrofitError error) {
                 hideProgressDialog();
-
                 ToastManager.show(getActivity(), getString(R.string.toast_network_error));
             }
         });

@@ -181,14 +181,14 @@ public class ImageToolbarActivity extends AppCompatActivity implements View.OnCl
 
                             @Override
                             public void failure(RetrofitError error) {
-
+                                ToastManager.show(ImageToolbarActivity.this, getString(R.string.toast_network_error));
                             }
                         });
             }
 
             @Override
             public void failure(RetrofitError error) {
-
+                ToastManager.show(ImageToolbarActivity.this, getString(R.string.toast_network_error));
             }
         });
 
@@ -203,7 +203,7 @@ public class ImageToolbarActivity extends AppCompatActivity implements View.OnCl
 
             @Override
             public void failure(RetrofitError error) {
-                System.out.println(error.getMessage());
+                ToastManager.show(ImageToolbarActivity.this, getString(R.string.toast_network_error));
             }
         });
     }
@@ -230,7 +230,7 @@ public class ImageToolbarActivity extends AppCompatActivity implements View.OnCl
                     @Override
                     public void failure(RetrofitError error) {
                         hideProgressDialog();
-
+                        ToastManager.show(ImageToolbarActivity.this, getString(R.string.toast_network_error));
                     }
                 });
     }
@@ -262,7 +262,7 @@ public class ImageToolbarActivity extends AppCompatActivity implements View.OnCl
                     @Override
                     public void failure(RetrofitError error) {
                         hideProgressDialog();
-
+                        ToastManager.show(ImageToolbarActivity.this, getString(R.string.toast_collection_update_successfully));
                     }
                 }
         );

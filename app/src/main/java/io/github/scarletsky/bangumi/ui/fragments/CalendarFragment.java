@@ -16,6 +16,7 @@ import io.github.scarletsky.bangumi.api.ApiManager;
 import io.github.scarletsky.bangumi.api.models.Calendar;
 import io.github.scarletsky.bangumi.events.GetCalendarEvent;
 import io.github.scarletsky.bangumi.utils.BusProvider;
+import io.github.scarletsky.bangumi.utils.ToastManager;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -96,6 +97,8 @@ public class CalendarFragment extends BaseToolbarFragment {
 
             @Override
             public void failure(RetrofitError error) {
+                ToastManager.show(getActivity(), getString(R.string.toast_collection_update_successfully));
+
             }
         });
     }
