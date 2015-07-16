@@ -40,7 +40,7 @@
                 style="@style/text_primary"
                 />
 
-            <!-- about this app -->
+            <!-- about  app -->
             <TextView
                 android:id="@+id/about_app_label"
                 android:layout_width="match_parent"
@@ -54,6 +54,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/label_about_app_detail"
+                style="@style/text_primary"
+                />
+
+            <!-- about author -->
+            <TextView
+                android:id="@+id/about_author_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_about_author"
+                style="@style/label_primary"
+                />
+
+            <TextView
+                android:id="@+id/about_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_about_author_detail"
                 style="@style/text_primary"
                 />
 

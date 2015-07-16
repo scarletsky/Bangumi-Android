@@ -65,9 +65,11 @@
     <string name="label_subject_rating_default">暂无</string>
     <string name="label_subject_comment_default">暂无吐槽</string>
     <string name="label_about_bangumi">关于Bangumi </string>
-    <string name="label_about_bangumi_detail">Bangumi 是由 Sai 于桂林发起的 ACG 分享与交流项目，致力于让阿宅们在欣赏ACG作品之余拥有一个轻松便捷独特的交流与沟通环境。\n具体请登录 http://bangumi.tv/ 查询。</string>
+    <string name="label_about_bangumi_detail">Bangumi 是由 Sai 于桂林发起的 ACG 分享与交流项目，致力于让阿宅们在欣赏ACG作品之余拥有一个轻松便捷独特的交流与沟通环境。\n\n具体请登录 http://bangumi.tv/ 查询。</string>
     <string name="label_about_app">关于本App</string>
-    <string name="label_about_app_detail">本 App 是非官方客户端，无广告，无跟踪，无捆绑销售，可以放心使用。</string>
+    <string name="label_about_app_detail">本 App 是非官方客户端，代码开源存放在 Github 上，无广告，无跟踪，无捆绑销售，可以放心使用。</string>
+    <string name="label_about_author">关于作者</string>
+    <string name="label_about_author_detail">程序+设计: scarletsky \n\n图片+启动图标: hotfloor </string>
 
     <!-- dialog -->
     <string name="dialog_logining">登录中…</string>
