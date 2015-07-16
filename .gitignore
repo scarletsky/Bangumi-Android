@@ -5,5 +5,4 @@
 .DS_Store
 /build
 /captures
-app/src/main/java/io/github/scarletsky/bangumi/api/models
 app/src/main/java/io/github/scarletsky/bangumi/api/BangumiApi.java
