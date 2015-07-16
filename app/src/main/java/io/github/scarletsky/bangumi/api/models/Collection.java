@@ -91,15 +91,15 @@ public class Collection {
     }
 
     public String getComment() {
+        return comment;
+    }
+
+    public String getCommentDetail() {
         if (comment.equals("")) {
             return "暂无吐槽";
         } else {
             return comment;
         }
-    }
-
-    public String getCommentOriginal() {
-        return comment;
     }
 
     public void setComment(String comment) {

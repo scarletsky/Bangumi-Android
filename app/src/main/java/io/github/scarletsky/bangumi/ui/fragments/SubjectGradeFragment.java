@@ -89,7 +89,7 @@ public class SubjectGradeFragment extends Fragment implements RadioGroup.OnCheck
             String statusName = Collection.WatchStatus.getById(mCollection.getStatus().getId()).getName();
             mSubjectStatus.setText(statusName);
             mSubjectRating.setText(String.valueOf(mCollection.getRating()));
-            mSubjectComment.setText(mCollection.getComment());
+            mSubjectComment.setText(mCollection.getCommentDetail());
 
             hideEditFields();
         }
@@ -141,7 +141,7 @@ public class SubjectGradeFragment extends Fragment implements RadioGroup.OnCheck
             }
 
             mSubjectRatingField.setValue(mCollection.getRating(), false);
-            mSubjectCommentField.setText(mCollection.getCommentOriginal());
+            mSubjectCommentField.setText(mCollection.getComment());
         }
     }
 

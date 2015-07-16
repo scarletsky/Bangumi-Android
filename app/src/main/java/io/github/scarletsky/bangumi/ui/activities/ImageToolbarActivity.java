@@ -244,7 +244,7 @@ public class ImageToolbarActivity extends AppCompatActivity implements View.OnCl
                 mSubject.getId(),
                 event.getCollection().getStatus().getType(),
                 event.getCollection().getRating(),
-                event.getCollection().getCommentOriginal(),
+                event.getCollection().getComment(),
                 session.getAuth(),
                 new Callback<Collection>() {
                     @Override
