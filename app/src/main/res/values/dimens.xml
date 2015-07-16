@@ -8,7 +8,7 @@
 
     <dimen name="drawer_header_min_height">100dp</dimen>
 
-    <dimen name="card_base_width">300dp</dimen>
+    <dimen name="card_base_width">150dp</dimen>
     <dimen name="card_base_margin">20dp</dimen>
     <dimen name="card_base_image_height">@dimen/card_base_width</dimen>
     <dimen name="card_base_title_size">14sp</dimen>
