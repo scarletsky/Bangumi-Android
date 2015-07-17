@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Bangumi</string>
+    <string name="app_name">Bangumi S</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_calendar">每日放送</string>
     <string name="title_loading">加载中</string>
