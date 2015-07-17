@@ -8,7 +8,7 @@ public class Ep {
     private int id;
     private String url;
     private int type;
-    private int sort;
+    private double sort;
     private String name;
     private String name_cn;
     private String duration;
@@ -60,7 +60,7 @@ public class Ep {
         return type;
     }
 
-    public int getSort() {
+    public double getSort() {
         return sort;
     }
 

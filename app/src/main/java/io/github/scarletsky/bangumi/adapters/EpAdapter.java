@@ -50,7 +50,12 @@ public class EpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         final Ep ep = data.get(position);
         ViewHolder h = (ViewHolder) holder;
-        h.mSort.setText(String.valueOf(ep.getSort()));
+        double epSort = ep.getSort();
+        if ((int) epSort == epSort) {
+            h.mSort.setText(String.valueOf((int) epSort));
+        } else {
+            h.mSort.setText(String.valueOf(epSort));
+        }
 
         switch (ep.getStatus()) {
             case AIR:
