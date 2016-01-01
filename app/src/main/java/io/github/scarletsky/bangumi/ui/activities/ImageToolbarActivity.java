@@ -108,6 +108,7 @@ public class ImageToolbarActivity extends AppCompatActivity implements View.OnCl
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(pagerAdapter);
+        pager.setOffscreenPageLimit(2);
         tabs.setViewPager(pager);
         tabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
