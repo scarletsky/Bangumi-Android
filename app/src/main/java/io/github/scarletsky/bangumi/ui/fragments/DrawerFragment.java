@@ -168,8 +168,8 @@ public class DrawerFragment extends Fragment implements OnNavigationItemSelected
     private void setupUser() {
         User user = mSession.getUser();
 
-        RoundedImageView mUserAvatar = (RoundedImageView) mNavigationView.findViewById(R.id.user_avatar);
-        TextView mUserNickname = (TextView) mNavigationView.findViewById(R.id.user_nickname);
+        RoundedImageView mUserAvatar = (RoundedImageView) mNavigationView.getHeaderView(0).findViewById(R.id.user_avatar);
+        TextView mUserNickname = (TextView) mNavigationView.getHeaderView(0).findViewById(R.id.user_nickname);
 
         if (user == null) {
             mUserAvatar.setImageResource(R.drawable.ic_social_person);
