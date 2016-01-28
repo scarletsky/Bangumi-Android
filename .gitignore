@@ -1,8 +1,8 @@
 .gradle
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
 .DS_Store
 /build
 /captures
+*.iml
+.idea
 app/src/main/java/io/github/scarletsky/bangumi/api/BangumiApi.java
