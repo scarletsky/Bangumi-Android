@@ -91,7 +91,9 @@ public class CollectionFragment extends BaseToolbarFragment {
             @Override
             public void success(List<UserCollection> userCollections, Response response) {
                 data.clear();
-                data.addAll(userCollections);
+                if (userCollections != null) {
+                    data.addAll(userCollections);
+                }
                 adapter.notifyDataSetChanged();
                 mSwipeRefresh.setRefreshing(false);
                 ToastManager.show(getActivity(), getString(R.string.toast_get_collections));
